@@ -4,12 +4,12 @@ class MockDatabase:
 
     def get_publication_summary(self):
         return (('Details', 'Conference Paper', 'Journal', 'Book', 'Book Chapter', 'Total'),
-                [('Number of publications', 10, 5, 8, 2, 25), ('Number of authors', 10, 5, 8, 2, 25)])
+                [('Number of publications', 10, 5, 8, 2, 25), ('Number of authors', 20, 15, 18, 12, 35)])
 
     # Return tuple containing headers and list of data
     def get_publications_by_author(self):
         return ('Author', 'Number of conference papers', 'Number of journals', 'Number of books',
-                'Number of book chapters', 'Total'), [('Author1', 1, 2, 3, 4, 10), ('Author2', 5, 6, 7, 8, 26)]
+                'Number of book chapters', 'Total'), [('Buthor1', 1, 2, 3, 4, 10), ('Cuthor2', 5, 6, 7, 8, 26),('Author3', 3, 3, 4, 1, 20)]
 
     # Return tuple containing headers and list of data
     def get_publications_by_year(self):

@@ -1,6 +1,5 @@
-{% extends "base.html" %}
-{% block title %}{{ args.title }}{% endblock %}
-{% block content %}
+{% extends "base.html" %} {% block title %}{{ args.title }}{% endblock %} {%
+block content %}
 <h1>{{ args.title }}</h1>
 {% for table in args.tables %}
 <h2>{{ table.title }}</h2>
@@ -8,20 +7,49 @@
   <thead>
     <tr>
       {% for column in table.header %}
-        <th>{{ column }}</th>
+      <th style="cursor: pointer;">{{ column }}</th>
       {% endfor %}
     </tr>
   </thead>
   <tbody>
-    {% for row in table.rows %}    
-      <tr>
-        {% for data_item in row %}
-          <td>{{ data_item }}</td>
-        {% endfor %}
-      </tr>
+    {% for row in table.rows %}
+    <tr>
+      {% for data_item in row %}
+      <td>{{ data_item }}</td>
+      {% endfor %}
+    </tr>
     {% endfor %}
   </tbody>
 </table>
-<br/>
+<br />
 {% endfor %}
+<script type="text/javascript">
+  const getCellValue = (tr, idx) =>
+    tr.children[idx].innerText || tr.children[idx].textContent;
+
+  const comparer = (idx, asc) => (a, b) =>
+    ((v1, v2) =>
+      v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
+        ? v1 - v2
+        : v1.toString().localeCompare(v2))(
+      getCellValue(asc ? b : a, idx),
+      getCellValue(asc ? a : b, idx)
+    );
+
+  document.querySelectorAll("th").forEach((th) =>
+    th.addEventListener("click", () => {
+      const table = th.closest("table");
+      const tbody = table.querySelector("tbody");
+      Array.from(tbody.querySelectorAll("tr"))
+        .sort(
+          comparer(
+            Array.from(th.parentNode.children).indexOf(th),
+            (this.asc = !this.asc)
+          )
+        )
+        .forEach((tr) => tbody.appendChild(tr));
+    })
+  );
+</script>
+
 {% endblock %}

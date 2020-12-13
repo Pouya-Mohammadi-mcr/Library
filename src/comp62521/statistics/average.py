@@ -40,6 +40,3 @@ def mode(X):
     modelist.sort()
     
     return modelist
-    
-
-    

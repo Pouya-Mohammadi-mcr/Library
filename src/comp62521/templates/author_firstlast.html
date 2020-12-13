@@ -1,25 +1,26 @@
-{% extends "base.html" %} {% block title %}{{ args.title }}{% endblock %} {%
-block content %}
+{% extends "base.html" %}
+{% block title %}{{ args.title }}{% endblock %}
+{% block content %}
 
 <h1>{{ args.title }}</h1>
 
-<table id="table1">
+<table class="table table-striped display" id="table1">
   <thead>
     <tr>
-      {% for column in args.data[0] %}
-      <th style="cursor: pointer">{{ column }}</th>
-      {% endfor %}
+    {% for column in args.data[0] %}
+      <th>{{ column }}</th>
+    {% endfor %}
     </tr>
   </thead>
 
   <tbody>
-    {% for row in args.data[1] %}
+  {% for row in args.data[1] %}
     <tr>
-      {% for data_item in row %}
+    {% for data_item in row %}
       <td>{{ data_item }}</td>
-      {% endfor %}
-    </tr>
     {% endfor %}
+    </tr>
+  {% endfor %}
   </tbody>
 </table>
 <script type="text/javascript">
@@ -63,3 +64,4 @@ block content %}
 </script>
 
 {% endblock %}
+

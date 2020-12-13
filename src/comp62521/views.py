@@ -120,3 +120,15 @@ def showPublicationSummary(status):
         args["data"] = db.get_author_totals_by_year()
 
     return render_template('statistics_details.html', args=args)
+
+
+@app.route("/authorfirstlast")
+def showAuthorFirstlast():
+    dataset = app.config['DATASET']
+    db = app.config['DATABASE']
+    args = {"dataset":dataset, "id":"author_firstlast"}
+
+    args["title"] = "First Authors and Last Authors"
+    args["data"] = db.get_author_firstlast()
+
+    return render_template('author_firstlast.html', args=args)

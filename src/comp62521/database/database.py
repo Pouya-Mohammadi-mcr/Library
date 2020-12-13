@@ -233,6 +233,24 @@ class Database:
                 for i in range(len(astats))]
         return header, data
 
+    def get_author_firstlast(self):
+        header = ("Author", 
+                 "Number of times of first author", 
+                 "Number of times of last author")
+
+        astats = [ [0, 0] for _ in range(len(self.authors)) ]
+
+        for p in self.publications:
+            if p.pub_type == 0:
+                if p.authors[0] == p.authors[-1]:
+                    astats[p.authors[0]][1] += 1
+                else:
+                    astats[p.authors[0]][0] += 1
+                    astats[p.authors[-1]][1] += 1
+        data = [[self.authors[i].name] + astats[i]
+                for i in range(len(astats))]
+        return header, data
+
     def get_average_authors_per_publication_by_year(self, av):
         header = ("Year", "Conference papers",
                   "Journals", "Books",
@@ -269,6 +287,7 @@ class Database:
 
         data = [[y] + ystats[y] + [sum(ystats[y])] for y in ystats]
         return header, data
+
 
     def get_average_publications_per_author_by_year(self, av):
         header = ("Year", "Conference papers",
@@ -310,6 +329,7 @@ class Database:
         data = [[y] + [len(s) for s in ystats[y]] + [len(ystats[y][0] | ystats[y][1] | ystats[y][2] | ystats[y][3])]
                 for y in ystats]
         return header, data
+
 
     def add_publication(self, pub_type, title, year, authors):
         if year is None or len(authors) == 0:

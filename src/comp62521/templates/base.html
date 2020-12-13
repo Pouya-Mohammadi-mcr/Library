@@ -1,23 +1,52 @@
+
 <!doctype html>
 <html>
-
-  <head>
+<style>
+#table1
+{
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	width:100%;
+	border-collapse:collapse;
+}
+#table1 td, #table1 th
+{
+	font-size:1em;
+	border:1px solid #3393F4;
+	padding:3px 7px 2px 7px;
+}
+#table1 th
+{
+	font-size:1.1em;
+	text-align:left;
+	padding-top:5px;
+	padding-bottom:4px;
+	background-color:#4793E0;
+	color:#ffffff;
+}
+</style>
+<head>
     <title>{% block title %}{% endblock %}</title>
-  </head>
 
-  <body>
-    <div id="page">
-      <div id="header">
-        <h1>COMP62521: {{ args.dataset }}</h1>
+</head>
 
-        <div id="navigation">
-          <a href="/">Home</a>
+<body>
+<div class="container">
+    <div id="page" class="col-md-10">
+        <div id="header" class="col-md-12">
+
+            <h1>COMP62521: {{ args.dataset }}</h1>
+
+            <div id="navigation">
+                <a class="btn btn-info" href="/">Home</a>
+            </div>
         </div>
-      </div>
 
-      <div id="content">
-        {% block content %}{% endblock %}
-      </div>
+        <div id="content" class="col-md-12">
+            {% block content %}{% endblock %}
+        </div>
     </div>
-  </body>
+
+</div>
+
+</body>
 </html>

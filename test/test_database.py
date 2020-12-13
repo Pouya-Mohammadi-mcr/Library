@@ -126,6 +126,12 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(data[0][0], 9999, "incorrect year in result")
         self.assertEqual(data[0][1], 2, "incorrect number of authors in result")
 
+    def test_get_author_firstlast(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir, "three-authors-and-three-publications.xml")))
+        header, data = db.get_author_firstlast()
+        self.assertEqual(data, [['author1', 1, 1], ['author2', 0, 1], ['author3', 0, 1]])
+
 
 if __name__ == '__main__':
     unittest.main()

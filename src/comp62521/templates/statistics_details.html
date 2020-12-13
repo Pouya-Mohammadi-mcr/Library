@@ -55,8 +55,6 @@ block content %}
           header_arr.push(header);
         }
       }
-      console.log(asc);
-      console.log(header_arr);
       Array.from(tbody.querySelectorAll("tr"))
         .sort(comparer(header, asc))
         .forEach((tr) => tbody.appendChild(tr));

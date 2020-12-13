@@ -23,6 +23,8 @@ block content %}
   </tbody>
 </table>
 <script type="text/javascript">
+  header_arr = [];
+  asc = false; // low - high
   const getCellValue = (tr, idx) =>
     tr.children[idx].innerText || tr.children[idx].textContent;
 
@@ -31,21 +33,32 @@ block content %}
       v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
         ? v1 - v2
         : v1.toString().localeCompare(v2))(
-      getCellValue(asc ? b : a, idx),
-      getCellValue(asc ? a : b, idx)
+      getCellValue(asc ? b : a, idx), // high - low
+      getCellValue(asc ? a : b, idx) // low - high
     );
 
   document.querySelectorAll("th").forEach((th) =>
     th.addEventListener("click", () => {
       const table = th.closest("table");
       const tbody = table.querySelector("tbody");
+      header = Array.from(th.parentNode.children).indexOf(th);
+      if (header_arr.length == 0) {
+        header_arr.push(header);
+        asc = true;
+      } else {
+        if (header_arr.includes(header)) { // click the same col
+          asc = false; // toggle
+          header_arr.pop()
+        } else { // click a new col
+          asc = true;
+          header_arr.pop()
+          header_arr.push(header);
+        }
+      }
+      console.log(asc);
+      console.log(header_arr);
       Array.from(tbody.querySelectorAll("tr"))
-        .sort(
-          comparer(
-            Array.from(th.parentNode.children).indexOf(th),
-            (this.asc = !this.asc)
-          )
-        )
+        .sort(comparer(header, asc))
         .forEach((tr) => tbody.appendChild(tr));
     })
   );

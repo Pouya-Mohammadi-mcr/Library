@@ -207,6 +207,13 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(data[0][0][0],"AUTHOR1","wrong name for author")   
         self.assertEqual(data[0][0][1],2,"wrong number of authors in AUTHOR1's network")
         self.assertEqual(data[0], nodes, "wrong nodes details")   
-        self.assertEqual(data[1], links, "wrong links details")   
+        self.assertEqual(data[1], links, "wrong links details")  
+
+    def test_get_author_firstlast(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir, "three-authors-and-three-publications.xml")))
+        header, data = db.get_author_firstlast()
+        self.assertEqual(data, [['author1', 1, 1], ['author2', 0, 1], ['author3', 0, 1]]) 
+        
 if __name__ == '__main__':
     unittest.main()

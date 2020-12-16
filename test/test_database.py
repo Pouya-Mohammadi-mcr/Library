@@ -209,11 +209,21 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(data[0], nodes, "wrong nodes details")   
         self.assertEqual(data[1], links, "wrong links details")  
 
-    def test_get_author_firstlast(self):
+    def test_get_author_firstlastsole(self):
         db = database.Database()
-        self.assertTrue(db.read(path.join(self.data_dir, "three-authors-and-three-publications.xml")))
-        header, data = db.get_author_firstlast()
-        self.assertEqual(data, [['author1', 1, 1], ['author2', 0, 1], ['author3', 0, 1]]) 
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-1.xml")))
+        header, data = db.get_author_firstlastsole()
+        self.assertEqual(data, [['AUTHOR1', 1, 1, 0], ['AUTHOR2', 0, 1, 0], ['AUTHOR3', 0, 1, 0], ['AUTHOR4', 2, 0, 0]])
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-2.xml")))
+        header, data = db.get_author_firstlastsole()
+        self.assertEqual(data, [['AUTHOR1', 2, 0, 1], ['AUTHOR3', 0, 0, 0], ['AUTHOR4', 0, 2, 0], ['AUTHOR2', 0, 0, 1]])
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-3.xml")))
+        header, data = db.get_author_firstlastsole()
+        self.assertEqual(data, [['AUTHOR', 0, 0, 9], ['AUTHOR1', 0, 0, 1]])
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-4.xml")))
+        header, data = db.get_author_firstlastsole()
+        self.assertEqual(data, [['AUTHOR1', 1, 0, 2], ['AUTHOR2', 0, 1, 0], ['AUTHOR3', 2, 1, 0], ['AUTHOR4', 0, 2, 0],
+                                ['AUTHOR6', 1, 0, 0], ['AUTHOR7', 0, 0, 1], ['AUTHOR8', 0, 0, 2]])
         
 if __name__ == '__main__':
     unittest.main()

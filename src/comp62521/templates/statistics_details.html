@@ -31,6 +31,16 @@ block content %}
   var comparer = function (idx, asc) {
     return function (a, b) {
       return (function (v1, v2) {
+        if (col_name == 'Author') {
+          v1_lastname = v1.split(/[\s,]+/);
+          v2_lastname = v2.split(/[\s,]+/);
+          console.log(v1_lastname)
+          console.log(v2_lastname)
+        }
+        else {
+
+        }
+
         return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
           ? v1 - v2
           : v1.toString().localeCompare(v2);

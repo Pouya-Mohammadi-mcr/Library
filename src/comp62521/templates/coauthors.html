@@ -79,9 +79,18 @@ header_arr = [];
     var comparer = function (idx, asc, col_name) {
     return function (a, b) {
       return (function (v1, v2) {
-        return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
+        if (col_name == 'Author') {
+
+        }
+        else if (col_name == 'Co-Authors') {
+
+        }
+        else {
+          return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
           ? v1 - v2
           : v1.toString().localeCompare(v2);
+        }
+       
       })(getCellValue(asc ? b : a, idx), getCellValue(asc ? a : b, idx));
     };
   };

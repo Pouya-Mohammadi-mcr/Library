@@ -42,6 +42,9 @@ block content %}
       const table = th.closest("table");
       const tbody = table.querySelector("tbody");
       header = Array.from(th.parentNode.children).indexOf(th);
+      col_name =
+        Array.from(th.parentNode.children)[header].innerText ||
+        Array.from(th.parentNode.children)[header].textContent;
       if (header_arr.length == 0) {
         header_arr.push(header);
         asc = true;

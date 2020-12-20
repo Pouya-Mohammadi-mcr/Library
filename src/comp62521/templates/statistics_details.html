@@ -28,7 +28,7 @@ block content %}
   const getCellValue = (tr, idx) =>
     tr.children[idx].innerText || tr.children[idx].textContent;
 
-  var comparer = function (idx, asc) {
+  var comparer = function (idx, asc, col_name) {
     return function (a, b) {
       return (function (v1, v2) {
         if (col_name == "Author") {
@@ -73,7 +73,7 @@ block content %}
         }
       }
       Array.from(tbody.querySelectorAll("tr"))
-        .sort(comparer(header, asc))
+        .sort(comparer(header, asc, col_name))
         .forEach((tr) => tbody.appendChild(tr));
     })
   );

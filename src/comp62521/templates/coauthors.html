@@ -82,12 +82,24 @@ header_arr = [];
         if (col_name == 'Author') {
           v1_lastname = v1.split(/[\s,]+/).slice(-2, -1)[0];
           v2_lastname = v2.split(/[\s,]+/).slice(-2, -1)[0];
+          return v1_lastname !== "" &&
+            v2_lastname !== "" &&
+            !isNaN(v1_lastname) &&
+            !isNaN(v2_lastname)
+            ? v1_lastname - v2_lastname
+            : v1_lastname.toString().localeCompare(v2_lastname);
         }
         else if (col_name == 'Co-Authors') {
           first_v1 = v1.split(',')[0]
           first_v1_lastname = first_v1.split(/[\s,]+/).slice(-2, -1)[0]
           first_v2 = v2.split(',')[0]
           first_v2_lastname = first_v2.split(/[\s,]+/).slice(-2, -1)[0]
+          return first_v1_lastname !== "" &&
+            first_v2_lastname !== "" &&
+            !isNaN(first_v1_lastname) &&
+            !isNaN(first_v2_lastname)
+            ? first_v1_lastname - first_v2_lastname
+            : first_v1_lastname.toString().localeCompare(first_v2_lastname);
         }
         else {
           return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)

@@ -80,10 +80,12 @@ header_arr = [];
     return function (a, b) {
       return (function (v1, v2) {
         if (col_name == 'Author') {
-
+          v1_lastname = v1.split(/[\s,]+/).slice(-2, -1)[0];
+          v2_lastname = v2.split(/[\s,]+/).slice(-2, -1)[0];
         }
         else if (col_name == 'Co-Authors') {
-
+          first_v1 = v1.split(',')[0]
+          first_v2 = v2.split(',')[0]
         }
         else {
           return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)

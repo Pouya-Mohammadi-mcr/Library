@@ -7,7 +7,7 @@ block content %}
   <thead>
     <tr>
       {% for column in args.data[0] %}
-      <th>{{ column }}</th>
+      <th style="cursor: pointer;">{{ column }}</th>
       {% endfor %}
     </tr>
   </thead>
@@ -34,14 +34,17 @@ block content %}
         if (col_name == "Author") {
           v1_lastname = v1.split(/[\s,]+/).pop();
           v2_lastname = v2.split(/[\s,]+/).pop();
-          console.log(v1_lastname);
-          console.log(v2_lastname);
+          return v1_lastname !== "" &&
+            v2_lastname !== "" &&
+            !isNaN(v1_lastname) &&
+            !isNaN(v2_lastname)
+            ? v1_lastname - v2_lastname
+            : v1_lastname.toString().localeCompare(v2_lastname);
         } else {
-
+          return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
+            ? v1 - v2
+            : v1.toString().localeCompare(v2);
         }
-        return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
-          ? v1 - v2
-          : v1.toString().localeCompare(v2);
       })(getCellValue(asc ? b : a, idx), getCellValue(asc ? a : b, idx));
     };
   };

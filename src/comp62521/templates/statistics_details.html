@@ -31,19 +31,20 @@ block content %}
   var comparer = function (idx, asc) {
     return function (a, b) {
       return (function (v1, v2) {
-        if (col_name == 'Author') {
+        if (col_name == "Author") {
           v1_lastname = v1.split(/[\s,]+/).pop();
           v2_lastname = v2.split(/[\s,]+/).pop();
-          console.log(v1_lastname)
-          console.log(v2_lastname)
+          return v1_lastname !== "" &&
+            v2_lastname !== "" &&
+            !isNaN(v1_lastname) &&
+            !isNaN(v2_lastname)
+            ? v1_lastname - v2_lastname
+            : v1_lastname.toString().localeCompare(v2_lastname);
+        } else {
+          return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
+            ? v1 - v2
+            : v1.toString().localeCompare(v2);
         }
-        else {
-
-        }
-
-        return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
-          ? v1 - v2
-          : v1.toString().localeCompare(v2);
       })(getCellValue(asc ? b : a, idx), getCellValue(asc ? a : b, idx));
     };
   };

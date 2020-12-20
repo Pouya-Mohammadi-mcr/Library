@@ -32,8 +32,8 @@ block content %}
     return function (a, b) {
       return (function (v1, v2) {
         if (col_name == 'Author') {
-          v1_lastname = v1.split(/[\s,]+/);
-          v2_lastname = v2.split(/[\s,]+/);
+          v1_lastname = v1.split(/[\s,]+/).pop();
+          v2_lastname = v2.split(/[\s,]+/).pop();
           console.log(v1_lastname)
           console.log(v2_lastname)
         }

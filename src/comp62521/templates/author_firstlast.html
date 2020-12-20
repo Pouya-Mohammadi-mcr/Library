@@ -1,26 +1,25 @@
-{% extends "base.html" %}
-{% block title %}{{ args.title }}{% endblock %}
-{% block content %}
+{% extends "base.html" %} {% block title %}{{ args.title }}{% endblock %} {%
+block content %}
 
 <h1>{{ args.title }}</h1>
 
 <table class="table table-striped display" id="table1">
   <thead>
     <tr>
-    {% for column in args.data[0] %}
+      {% for column in args.data[0] %}
       <th>{{ column }}</th>
-    {% endfor %}
+      {% endfor %}
     </tr>
   </thead>
 
   <tbody>
-  {% for row in args.data[1] %}
+    {% for row in args.data[1] %}
     <tr>
-    {% for data_item in row %}
+      {% for data_item in row %}
       <td>{{ data_item }}</td>
-    {% endfor %}
+      {% endfor %}
     </tr>
-  {% endfor %}
+    {% endfor %}
   </tbody>
 </table>
 <script type="text/javascript">
@@ -29,14 +28,15 @@
   const getCellValue = (tr, idx) =>
     tr.children[idx].innerText || tr.children[idx].textContent;
 
-  const comparer = (idx, asc) => (a, b) =>
-    ((v1, v2) =>
-      v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
-        ? v1 - v2
-        : v1.toString().localeCompare(v2))(
-      getCellValue(asc ? b : a, idx), // high - low
-      getCellValue(asc ? a : b, idx) // low - high
-    );
+  var comparer = function (idx, asc) {
+    return function (a, b) {
+      return (function (v1, v2) {
+        return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
+          ? v1 - v2
+          : v1.toString().localeCompare(v2);
+      })(getCellValue(asc ? b : a, idx), getCellValue(asc ? a : b, idx));
+    };
+  };
 
   document.querySelectorAll("th").forEach((th) =>
     th.addEventListener("click", () => {
@@ -50,12 +50,14 @@
         header_arr.push(header);
         asc = true;
       } else {
-        if (header_arr.includes(header)) { // click the same col
+        if (header_arr.includes(header)) {
+          // click the same col
           asc = false; // toggle
-          header_arr.pop()
-        } else { // click a new col
+          header_arr.pop();
+        } else {
+          // click a new col
           asc = true;
-          header_arr.pop()
+          header_arr.pop();
           header_arr.push(header);
         }
       }
@@ -67,4 +69,3 @@
 </script>
 
 {% endblock %}
-

@@ -76,14 +76,15 @@ header_arr = [];
   const getCellValue = (tr, idx) =>
     tr.children[idx].innerText || tr.children[idx].textContent;
 
-  const comparer = (idx, asc) => (a, b) =>
-    ((v1, v2) =>
-      v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
-        ? v1 - v2
-        : v1.toString().localeCompare(v2))(
-      getCellValue(asc ? b : a, idx), // high - low
-      getCellValue(asc ? a : b, idx) // low - high
-    );
+    var comparer = function (idx, asc) {
+    return function (a, b) {
+      return (function (v1, v2) {
+        return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
+          ? v1 - v2
+          : v1.toString().localeCompare(v2);
+      })(getCellValue(asc ? b : a, idx), getCellValue(asc ? a : b, idx));
+    };
+  };
 
   document.querySelectorAll("th").forEach((th) =>
     th.addEventListener("click", () => {

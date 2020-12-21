@@ -122,13 +122,13 @@ def showPublicationSummary(status):
     return render_template('statistics_details.html', args=args)
 
 
-@app.route("/authorfirstlast")
-def showAuthorFirstlast():
+@app.route("/authorfirstlastsole")
+def showAuthorFirstlastSole():
     dataset = app.config['DATASET']
     db = app.config['DATABASE']
-    args = {"dataset":dataset, "id":"author_firstlast"}
+    args = {"dataset":dataset, "id":"author_firstlastsole"}
 
-    args["title"] = "First Authors and Last Authors"
-    args["data"] = db.get_author_firstlast()
+    args["title"] = "First/Last/Sole Authors"
+    args["data"] = db.get_author_firstlastsole()
 
     return render_template('author_firstlast.html', args=args)

@@ -233,20 +233,20 @@ class Database:
                 for i in range(len(astats))]
         return header, data
 
-    def get_author_firstlast(self):
-        header = ("Author", 
-                 "Number of times of first author", 
-                 "Number of times of last author")
+    def get_author_firstlastsole(self):
+        header = ("Author",
+                  "First author",
+                  "Last author",
+                  "Sole author")
 
-        astats = [ [0, 0] for _ in range(len(self.authors)) ]
+        astats = [ [0, 0, 0] for _ in range(len(self.authors)) ]
 
         for p in self.publications:
-            if p.pub_type == 0:
-                if p.authors[0] == p.authors[-1]:
-                    astats[p.authors[0]][1] += 1
-                else:
-                    astats[p.authors[0]][0] += 1
-                    astats[p.authors[-1]][1] += 1
+            if p.authors[0] == p.authors[-1]:
+                astats[p.authors[0]][2] += 1
+            else:
+                astats[p.authors[0]][0] += 1
+                astats[p.authors[-1]][1] += 1
         data = [[self.authors[i].name] + astats[i]
                 for i in range(len(astats))]
         return header, data

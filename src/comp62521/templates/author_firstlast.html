@@ -7,7 +7,7 @@ block content %}
   <thead>
     <tr>
       {% for column in args.data[0] %}
-      <th style="cursor: pointer;">{{ column }}</th>
+      <th style="cursor: pointer">{{ column }}</th>
       {% endfor %}
     </tr>
   </thead>
@@ -34,6 +34,16 @@ block content %}
         if (col_name == "Author") {
           v1_lastname = v1.split(/[\s,]+/).pop();
           v2_lastname = v2.split(/[\s,]+/).pop();
+          
+          numLastname1 = parseInt(v1_lastname.toString());
+          numLastname2 = parseInt(v2_lastname.toString());
+
+          if (isNaN(numLastname1) == false) {
+            v1_lastname = v1.split(/[\s,]+/).slice(-2, -1)[0];
+          }
+          if (isNaN(numLastname2) == false) {
+            v2_lastname = v2.split(/[\s,]+/).slice(-2, -1)[0];
+          }
           return v1_lastname !== "" &&
             v2_lastname !== "" &&
             !isNaN(v1_lastname) &&

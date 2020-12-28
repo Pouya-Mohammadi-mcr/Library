@@ -224,6 +224,13 @@ class TestDatabase(unittest.TestCase):
         header, data = db.get_author_firstlastsole()
         self.assertEqual(data, [['AUTHOR1', 1, 0, 2], ['AUTHOR2', 0, 1, 0], ['AUTHOR3', 2, 1, 0], ['AUTHOR4', 0, 2, 0],
                                 ['AUTHOR6', 1, 0, 0], ['AUTHOR7', 0, 0, 1], ['AUTHOR8', 0, 0, 2]])
+
+
+    def test_get_author_info(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-1.xml")))
+        header, data = db.get_authors_info()
+        self.assertEqual(data, [['AUTHOR1', 2, 2, 0, 0, 0, 3, 1, 1],  ['AUTHOR2', 2, 2, 0, 0, 0, 3, 0, 1],  ['AUTHOR3', 1, 1, 0, 0, 0, 2, 0, 1],  ['AUTHOR4', 2, 2, 0, 0, 0, 2, 2, 0]])
         
 if __name__ == '__main__':
     unittest.main()

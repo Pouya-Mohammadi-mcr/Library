@@ -225,5 +225,10 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(data, [['AUTHOR1', 1, 0, 2], ['AUTHOR2', 0, 1, 0], ['AUTHOR3', 2, 1, 0], ['AUTHOR4', 0, 2, 0],
                                 ['AUTHOR6', 1, 0, 0], ['AUTHOR7', 0, 0, 1], ['AUTHOR8', 0, 0, 2]])
         
+
+    def test_get_author_stat(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir,
+                                          "sprint-2-acceptance-2.xml")))  
 if __name__ == '__main__':
     unittest.main()

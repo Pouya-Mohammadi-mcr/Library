@@ -3,4 +3,10 @@ block content %}
 
 <h1>{{ args.title }}</h1>
 
+<form action="/searchAuthor.py">
+    <label for="authorName">Author's Full Name:</label><br>
+    <input type="text" id="authorName" name="authorName" title="Enter Full Name" ><br>
+    <input type="submit" value="Submit">
+  </form>
+
 {% endblock %}

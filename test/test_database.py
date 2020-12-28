@@ -185,7 +185,6 @@ class TestDatabase(unittest.TestCase):
         self.assertTrue(db.read(path.join(self.data_dir,
                                           "sprint-2-acceptance-2.xml")))
         data = db.get_coauthor_details("AUTHOR1")
-        print (data)
         self.assertEqual(data[0][0],"AUTHOR1","wrong name for author")
         self.assertEqual(data[0][1],3,"wrong number of publications")
         self.assertEqual(data[1][0],"AUTHOR3","wrong name for coauthor")
@@ -230,9 +229,15 @@ class TestDatabase(unittest.TestCase):
         db = database.Database()
         self.assertTrue(db.read(path.join(self.data_dir,
                                           "sprint-2-acceptance-2.xml"))) 
-        data = db.get_author_stat("AUTHOR3")
-        self.assertEqual(data, ['AUTHOR3', 1, 1, 0, 0, 0, 0, 2,])
-        
+        header, data = db.get_author_stat("AUTHOR3")
+        self.assertEqual(data, [ 1, 1, 0, 0, 0, 2, 0, 0])
+        header, data = db.get_author_stat("AUTHOR1")
+        self.assertEqual(data, [ 3, 3, 0, 0, 0, 2, 2, 0])
+        header, data = db.get_author_stat("AUTHOR2")
+        self.assertEqual(data, [ 1, 0, 0, 0, 1, 0, 0, 0])
+        header, data = db.get_author_stat("AUTHOR4")
+        self.assertEqual(data, [ 2, 2, 0, 0, 0, 2, 0, 2])
+       
    
          
 if __name__ == '__main__':

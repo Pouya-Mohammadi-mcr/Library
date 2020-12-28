@@ -229,9 +229,10 @@ class TestDatabase(unittest.TestCase):
         db = database.Database()
         self.assertTrue(db.read(path.join(self.data_dir,
                                           "sprint-2-acceptance-2.xml"))) 
-        header = db.get_author_stat("Adalberto Zordan")
-        self.assertEqual( header, "Poblications")
-        print (db.get_publications_by_author())
+        numPub = db.get_author_stat("AUTHOR3")
+        self.assertEqual( numPub, 1)
+        numPub = db.get_author_stat("AUTHOR1")
+        self.assertEqual( numPub, 2)        
          
 if __name__ == '__main__':
     unittest.main()

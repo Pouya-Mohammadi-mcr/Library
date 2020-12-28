@@ -251,6 +251,15 @@ class Database:
                 for i in range(len(astats))]
         return header, data
 
+    def get_author_stat(self, name):
+        numPub = 0
+        for p in self.publications:
+            for a in p.authors:
+                if self.authors[a].name == name:
+                    numPub+= 1
+        return numPub
+
+
     def get_average_authors_per_publication_by_year(self, av):
         header = ("Year", "Conference papers",
                   "Journals", "Books",

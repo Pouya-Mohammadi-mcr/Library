@@ -196,7 +196,6 @@ class TestDatabase(unittest.TestCase):
         db = database.Database()
         self.assertTrue(db.read(path.join(self.data_dir,
                                           "sprint-2-acceptance-2.xml")))  
-        print(db.get_all_authors())           
     def test_get_network_data(self):
         nodes = [['AUTHOR1', 2], ['AUTHOR3', 2], ['AUTHOR4', 2], ['AUTHOR2', 0]]
         links = {(0, 1), (0, 2), (1, 2)}
@@ -229,6 +228,10 @@ class TestDatabase(unittest.TestCase):
     def test_get_author_stat(self):
         db = database.Database()
         self.assertTrue(db.read(path.join(self.data_dir,
-                                          "sprint-2-acceptance-2.xml")))  
+                                          "sprint-2-acceptance-2.xml"))) 
+        header = db.get_author_stat("Adalberto Zordan")
+        self.assertEqual( header, "Poblications")
+        print (db.get_publications_by_author())
+         
 if __name__ == '__main__':
     unittest.main()

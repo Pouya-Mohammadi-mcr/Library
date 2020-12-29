@@ -6,27 +6,34 @@ block content %}
         <label for="authorName">Author's Full Name:</label><br>
     <input type="text" class="form-control" id="authorName" name="authorName" title="Enter Full Name" ><br>
     <div style="margin-top: 5px">
-        <input type="submit" value="Submit" class="btn btn-primary">
+        <input type="submit" value="Search" class="btn btn-primary">
       </div>
       </form>
 
 
-
-      <table class="table table-striped display" id="table1">
+      {% if args.search %}
+      <table class="table table-striped display" style="margin-top: 20px" id="table1">
         <thead>
           <tr>
             {% for column in args.data[0] %}
-            <th style="cursor: pointer">{{ column }}</th>
+            <th>{{ column }}</th>
             {% endfor %}
           </tr>
         </thead>
       
         <tbody>
             <tr>
+            <td>{{args.authorName}}</td>    
           {% for row in args.data[1] %}
-            <td>{{ data_item }}</td>
+            <td>{{ row }}</td>
           {% endfor %}
             </tr>
         </tbody>
       </table>
+      {% endif %}
+
+      {% if args.invalid %}
+      <h3 style="color: red;"> Name" {{args.authorName}} " Not Found</h5>
+      {% endif %}
+
 {% endblock %}

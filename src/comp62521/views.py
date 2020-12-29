@@ -139,12 +139,21 @@ def showSearch_Author():
     dataset = app.config['DATASET']
     db = app.config['DATABASE']
     args = {"dataset":dataset, "id":"search_author"}
+    args["title"] = "Search Authors"
+    allAuthors = db.get_all_author_names()
 
-    authorName = "AUTHOR1"
     if "authorName" in request.args:
         authorName = request.args.get("authorName")
+        args["authorName"] = authorName
 
-    args["title"] = "Search Authors"
-    args["data"] = db.get_author_stat(authorName)
+        if authorName in allAuthors:
+            args["data"] = db.get_author_stat(authorName)
+            args["search"] = True
+            args["invalid"] = False
+
+        else:
+            args["invalid"] = True
+    else:
+        args["search"] = False
 
     return render_template('search_author.html', args=args)

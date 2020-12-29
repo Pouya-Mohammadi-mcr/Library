@@ -253,7 +253,7 @@ class Database:
 
     def get_author_stat(self, name):
         header = ("Author", "Number of all publications","Number of conference papers",
-                  "Number of journals", "Number of book chapters", "Number of books"
+                  "Number of journals", "Number of book chapters", "Number of books",
                   "Number of co-authors", "First on a paper", "Last on a paper")
         astats=[0,0,0,0,0,0,0,0]
         for p in self.publications:
@@ -276,6 +276,11 @@ class Database:
                 astats[7] = i[2]
         return header, astats
 
+    def get_all_author_names(self):
+        data = []
+        for i in range(len(self.authors)):
+            data += [self.authors[i].name]
+        return data
 
     def get_average_authors_per_publication_by_year(self, av):
         header = ("Year", "Conference papers",

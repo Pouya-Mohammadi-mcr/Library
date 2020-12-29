@@ -413,10 +413,12 @@ class Database:
                     if a != a1:
                         try:
                             coauthors[a].add(a1)
-                            astats[a][5] = len(coauthors[a])
                         except KeyError:
                             coauthors[a] = set([a1])
-
+                try:
+                    astats[a][5] = len(coauthors[a])
+                except:
+                    astats[a][5] = 0
 
             for a in p.authors:
                 astats[a][0]=astats[a][1]+astats[a][2]+astats[a][3]+astats[a][4]

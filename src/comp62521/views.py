@@ -132,3 +132,14 @@ def showAuthorFirstlastSole():
     args["data"] = db.get_author_firstlastsole()
 
     return render_template('author_firstlast.html', args=args)
+
+@app.route("/authorsinfo")
+def showAuthorInfo():
+    dataset = app.config['DATASET']
+    db = app.config['DATABASE']
+    args = {"dataset":dataset, "id":"authors_info"}
+
+    args["title"] = "Authors Information and Search"
+    args["data"] = db.get_authors_info()
+
+    return render_template('authors_info.html', args=args)

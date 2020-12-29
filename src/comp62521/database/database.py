@@ -395,6 +395,34 @@ class Database:
                     links.add((a, a2))
         return nodes, links
 
+    def get_authors_info(self):
+        coauthors = {}
+        header = ("Author", "The overall number of publications","The number of conference papers", "The number of journal articles", "The number of book chapters","The number of books", "The number of co-authors","The number of times (overall) an author appears first on a paper","The number of times (overall) an author appears last on a paper")
+
+        astats = [ [0, 0, 0, 0, 0, 0, 0, 0] for _ in range(len(self.authors)) ]
+        for p in self.publications:
+            if p.authors[0] == p.authors[-1]:
+                astats[p.authors[0]][6]+=0
+            else:
+                astats[p.authors[0]][6]+=1
+                astats[p.authors[-1]][7]+=1
+
+            for a in p.authors:
+                astats[a][p.pub_type+1] += 1
+                for a1 in p.authors:
+                    if a != a1:
+                        try:
+                            coauthors[a].add(a1)
+                        except KeyError:
+                            coauthors[a] = set([a1])
+                astats[a][5]=len(coauthors[a])
+
+            for a in p.authors:
+                astats[a][0]=astats[a][1]+astats[a][2]+astats[a][3]+astats[a][4]
+
+        data = [ [self.authors[i].name] + astats[i]
+            for i in range(len(astats)) ]
+        return header, data
 
 class DocumentHandler(xml.sax.handler.ContentHandler):
     TITLE_TAGS = ["sub", "sup", "i", "tt", "ref"]

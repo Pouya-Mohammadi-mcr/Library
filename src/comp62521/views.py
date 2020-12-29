@@ -138,9 +138,13 @@ def showAuthorFirstlastSole():
 def showSearch_Author():
     dataset = app.config['DATASET']
     db = app.config['DATABASE']
-    args = {"dataset":dataset, "id":"author_firstlastsole"}
+    args = {"dataset":dataset, "id":"search_author"}
+
+    authorName = "AUTHOR1"
+    if "authorName" in request.args:
+        authorName = request.args.get("authorName")
 
     args["title"] = "Search Authors"
-    args["data"] = db.get_author_firstlastsole()
+    args["data"] = db.get_author_stat(authorName)
 
     return render_template('search_author.html', args=args)

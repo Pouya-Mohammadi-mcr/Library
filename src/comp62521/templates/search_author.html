@@ -2,11 +2,31 @@
 block content %}
 
 <h1>{{ args.title }}</h1>
+    <form name="input" action="/search_author" method="get" data-ajax="false" onSubmit="validateForm(this)">
+        <label for="authorName">Author's Full Name:</label><br>
+    <input type="text" class="form-control" id="authorName" name="authorName" title="Enter Full Name" ><br>
+    <div style="margin-top: 5px">
+        <input type="submit" value="Submit" class="btn btn-primary">
+      </div>
+      </form>
 
-<form action="/searchAuthor.py">
-    <label for="authorName">Author's Full Name:</label><br>
-    <input type="text" id="authorName" name="authorName" title="Enter Full Name" ><br>
-    <input type="submit" value="Submit">
-  </form>
 
+
+      <table class="table table-striped display" id="table1">
+        <thead>
+          <tr>
+            {% for column in args.data[0] %}
+            <th style="cursor: pointer">{{ column }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+      
+        <tbody>
+            <tr>
+          {% for row in args.data[1] %}
+            <td>{{ data_item }}</td>
+          {% endfor %}
+            </tr>
+        </tbody>
+      </table>
 {% endblock %}

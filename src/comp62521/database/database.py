@@ -258,7 +258,7 @@ class Database:
         astats=[0,0,0,0,0,0,0,0]
         for p in self.publications:
             for a in p.authors:
-                if self.authors[a].name == name:
+                if self.authors[a].name.lower() == name:
                     astats[0]+= 1
                     if p.pub_type == 0:
                         astats[1]+= 1
@@ -268,18 +268,22 @@ class Database:
                         astats[4]+= 1
                     elif p.pub_type == 3:
                         astats[3]+= 1
-        astats[5] = len(self.get_coauthor_details(name)) - 1   
+                        
+        #to be fixed
+        astats[5] = 0   
+        #######
+
         h , d = self.get_author_firstlastsole()
         for i in d:
-            if i[0]== name:
+            if i[0].lower()== name:
                 astats[6] = i[1]
                 astats[7] = i[2]
         return header, astats
 
-    def get_all_author_names(self):
+    def get_all_author_names_lower(self):
         data = []
         for i in range(len(self.authors)):
-            data += [self.authors[i].name]
+            data += [self.authors[i].name.lower()]
         return data
 
     def get_average_authors_per_publication_by_year(self, av):

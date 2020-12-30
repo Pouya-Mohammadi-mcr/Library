@@ -269,9 +269,9 @@ class Database:
                     elif p.pub_type == 3:
                         astats[3]+= 1
                         
-        #to be fixed
-        astats[5] = 0   
-        #######
+        
+        astats[5] = len(self.get_coauthor_details_lowerCase(name)) - 1   
+        
 
         h , d = self.get_author_firstlastsole()
         for i in d:
@@ -416,6 +416,15 @@ class Database:
         data = self._get_collaborations(author_id, True)
         return [(self.authors[key].name, data[key])
                 for key in data]
+
+    def get_coauthor_details_lowerCase(self, name):
+        for a in range(len(self.author_idx)):
+            keys_list = list(self.author_idx)
+            if name == keys_list[a].lower():
+                author_id = self.author_idx[keys_list[a]]
+                data = self._get_collaborations(author_id, True)
+                return [(self.authors[key].name, data[key])
+                        for key in data]
 
     def get_network_data(self):
         na = len(self.authors)

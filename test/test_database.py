@@ -229,23 +229,28 @@ class TestDatabase(unittest.TestCase):
         db = database.Database()
         self.assertTrue(db.read(path.join(self.data_dir,
                                           "sprint-2-acceptance-2.xml"))) 
-        header, data = db.get_author_stat("AUTHOR3")
+        header, data = db.get_author_stat("author3")
         self.assertEqual(data, [ 1, 1, 0, 0, 0, 2, 0, 0])
-        header, data = db.get_author_stat("AUTHOR1")
+        header, data = db.get_author_stat("author1")
         self.assertEqual(data, [ 3, 3, 0, 0, 0, 2, 2, 0])
-        header, data = db.get_author_stat("AUTHOR2")
+        header, data = db.get_author_stat("author2")
         self.assertEqual(data, [ 1, 0, 0, 0, 1, 0, 0, 0])
-        header, data = db.get_author_stat("AUTHOR4")
+        header, data = db.get_author_stat("author4")
         self.assertEqual(data, [ 2, 2, 0, 0, 0, 2, 0, 2])
 
-    def test_get_all_author_names(self):
+    def test_get_all_author_names_lower(self):
         db = database.Database()
         self.assertTrue(db.read(path.join(self.data_dir,
                                           "sprint-2-acceptance-2.xml")))  
-        data = db.get_all_author_names()
-        self.assertEqual(data, ['AUTHOR1', 'AUTHOR3', 'AUTHOR4', 'AUTHOR2'])
+        data = db.get_all_author_names_lower()
+        self.assertEqual(data, ['author1', 'author3', 'author4', 'author2'])
 
-   
-         
+    def test_get_coauthor_details_lowerCase(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir,
+                                          "dblp_curated_sample.xml"))) 
+        self.assertEqual(db.get_coauthor_details_lowerCase("andrew brown"),
+        (db.get_coauthor_details("Andrew Brown")))
+
 if __name__ == '__main__':
     unittest.main()

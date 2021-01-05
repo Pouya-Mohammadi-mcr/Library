@@ -247,6 +247,14 @@ class TestDatabase(unittest.TestCase):
         header, data = db.get_author_stat("anhai doan")
         self.assertEqual(data, [14, 6, 7, 1, 0, 11, 10, 0])
 
+    def test_get_author_stat_partial(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir,
+                                          "dblp_2000_2005_114_papers.xml"))) 
+        header, data = db.get_author_stat("anhai")
+        self.assertEqual(data, [14, 6, 7, 1, 0, 11, 10, 0])
+    
+
     def test_get_all_author_names_lower(self):
         db = database.Database()
         self.assertTrue(db.read(path.join(self.data_dir,

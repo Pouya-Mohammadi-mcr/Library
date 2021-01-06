@@ -269,5 +269,12 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(db.get_coauthor_details_lowerCase("andrew brown"),
         (db.get_coauthor_details("Andrew Brown")))
 
+    def test_get_partial_match (self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir,
+                                          "dblp_curated_sample.xml"))) 
+        allAuthors = db.get_all_author_names_lower()
+        self.assertEqual(db.get_partial_match("andrew", allAuthors), 1)
+
 if __name__ == '__main__':
     unittest.main()

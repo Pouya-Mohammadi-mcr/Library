@@ -274,7 +274,7 @@ class TestDatabase(unittest.TestCase):
         self.assertTrue(db.read(path.join(self.data_dir,
                                           "dblp_curated_sample.xml"))) 
         allAuthors = db.get_all_author_names_lower()
-        self.assertEqual(db.get_partial_match("andrew", allAuthors), 1)
+        self.assertEqual(db.get_partial_match("andrew", allAuthors), 9)
 
 if __name__ == '__main__':
     unittest.main()

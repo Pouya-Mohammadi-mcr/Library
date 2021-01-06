@@ -274,7 +274,10 @@ class TestDatabase(unittest.TestCase):
         self.assertTrue(db.read(path.join(self.data_dir,
                                           "dblp_curated_sample.xml"))) 
         allAuthors = db.get_all_author_names_lower()
-        self.assertEqual(db.get_partial_match("andrew", allAuthors), 9)
+        matchedNum, matched = db.get_partial_match("andrew", allAuthors)
+        self.assertEqual(matchedNum, 9)
+        self.assertEqual(matched, ['andrew dinn', 'andrew hayes', 'andrew c. jones', 'andrew gibson', 'andrew r. jones', 'andrew borley', 'andrew eisenberg', 'andrew fikes', 'andrew brown'])
+
 
 if __name__ == '__main__':
     unittest.main()

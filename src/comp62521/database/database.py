@@ -289,7 +289,7 @@ class Database:
             matchScore[i] = fuzz.partial_ratio(authorName, i)
             if matchScore[i] == 100:
                 matched.append(i)
-        return (len(matched))
+        return len(matched), matched
 
     def get_all_author_names_lower(self):
         data = []

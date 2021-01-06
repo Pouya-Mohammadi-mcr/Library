@@ -247,13 +247,6 @@ class TestDatabase(unittest.TestCase):
         header, data = db.get_author_stat("anhai doan")
         self.assertEqual(data, [14, 6, 7, 1, 0, 11, 10, 0])
 
-    def test_get_author_stat_partial(self):
-        db = database.Database()
-        self.assertTrue(db.read(path.join(self.data_dir,
-                                          "dblp_2000_2005_114_papers.xml"))) 
-        header, data = db.get_author_stat("anhai")
-        self.assertEqual(data, [14, 6, 7, 1, 0, 11, 10, 0])
-    
 
     def test_get_all_author_names_lower(self):
         db = database.Database()
@@ -277,6 +270,11 @@ class TestDatabase(unittest.TestCase):
         matchedNum, matched = db.get_partial_match("andrew", allAuthors)
         self.assertEqual(matchedNum, 9)
         self.assertEqual(matched, ['andrew dinn', 'andrew hayes', 'andrew c. jones', 'andrew gibson', 'andrew r. jones', 'andrew borley', 'andrew eisenberg', 'andrew fikes', 'andrew brown'])
+
+        matchedNum, matched = db.get_partial_match("cornell", allAuthors)
+        self.assertEqual(matchedNum, 1)
+        self.assertEqual(matched, ['mike cornell'])
+        
 
 
 if __name__ == '__main__':

@@ -33,7 +33,15 @@ block content %}
       {% endif %}
 
       {% if args.invalid %}
-      <h3 style="color: red;"> Name "{{args.authorName}}" Not Found</h5>
+      <h3 style="color: red;"> Name "{{args.authorName}}" Not Found</h3>
       {% endif %}
 
+      {% if args.multipleMatch %}
+    </br>
+        {% for row in args.matches[1] %}
+        <a href="/author_stats?authorName={{row}}" ">Stats for {{ row }}</a></br>
+        {% endfor %}
+      {% endif %}
+
+     
 {% endblock %}

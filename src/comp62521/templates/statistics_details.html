@@ -71,8 +71,6 @@ block content %}
               n2_lastname = n2.split(/[\s,]+/).slice(-2, -1)[0];
             }
 
-            console.log(n1_lastname, n2_lastname)
-
             return n1_lastname !== "" && n2_lastname !== "" && !isNaN(n1_lastname) && !isNaN(n2_lastname)
               ? n1_lastname - n2_lastname
               : n1_lastname.toString().localeCompare(n2_lastname);

@@ -32,6 +32,7 @@ block content %}
     return function (a, b) {
       return (function (v1, v2) {
         if (col_name == "Author") {
+          console.log("Author col");
           v1_lastname = v1.split(/[\s,]+/).pop();
           v2_lastname = v2.split(/[\s,]+/).pop();
 
@@ -40,8 +41,7 @@ block content %}
 
           if (isNaN(numLastname1) == false) {
             v1_lastname = v1.split(/[\s,]+/).slice(-2, -1)[0];
-
-          } 
+          }
           if (isNaN(numLastname2) == false) {
             v2_lastname = v2.split(/[\s,]+/).slice(-2, -1)[0];
           }
@@ -53,11 +53,23 @@ block content %}
             ? v1_lastname - v2_lastname
             : v1_lastname.toString().localeCompare(v2_lastname);
         } else {
-          return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
+          if (v1 - v2 == 0) { // numbers are the same
+            n1 = getCellValue(a, 0) // get the value in column[0]
+            n2 = getCellValue(b, 0)
+
+            return n1 !== "" && n2 !== "" && !isNaN(n1) && !isNaN(n2)
+            ? n1 - n2
+            : n1.toString().localeCompare(n2);
+
+          }
+          else {
+            return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
             ? v1 - v2
             : v1.toString().localeCompare(v2);
+          }
         }
-      })(getCellValue(asc ? b : a, idx), getCellValue(asc ? a : b, idx));
+      })
+      (getCellValue(asc ? b : a, idx), getCellValue(asc ? a : b, idx));
     };
   };
 

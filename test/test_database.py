@@ -237,6 +237,16 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(data, [ 1, 0, 0, 0, 1, 0, 0, 0])
         header, data = db.get_author_stat("author4")
         self.assertEqual(data, [ 2, 2, 0, 0, 0, 2, 0, 2])
+        self.assertTrue(db.read(path.join(self.data_dir,
+                                          "dblp_curated_sample.xml"))) 
+        header, data = db.get_author_stat("carlo batini")
+        self.assertEqual(data, [10, 6, 3, 0, 1, 15, 3, 5])
+        
+        self.assertTrue(db.read(path.join(self.data_dir,
+                                          "dblp_2000_2005_114_papers.xml"))) 
+        header, data = db.get_author_stat("anhai doan")
+        self.assertEqual(data, [14, 6, 7, 1, 0, 11, 10, 0])
+
 
     def test_get_all_author_names_lower(self):
         db = database.Database()
@@ -251,6 +261,21 @@ class TestDatabase(unittest.TestCase):
                                           "dblp_curated_sample.xml"))) 
         self.assertEqual(db.get_coauthor_details_lowerCase("andrew brown"),
         (db.get_coauthor_details("Andrew Brown")))
+
+    def test_get_partial_match (self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir,
+                                          "dblp_curated_sample.xml"))) 
+        allAuthors = db.get_all_author_names_lower()
+        matchedNum, matched = db.get_partial_match("andrew", allAuthors)
+        self.assertEqual(matchedNum, 9)
+        self.assertEqual(matched, ['andrew dinn', 'andrew hayes', 'andrew c. jones', 'andrew gibson', 'andrew r. jones', 'andrew borley', 'andrew eisenberg', 'andrew fikes', 'andrew brown'])
+
+        matchedNum, matched = db.get_partial_match("cornell", allAuthors)
+        self.assertEqual(matchedNum, 1)
+        self.assertEqual(matched, ['mike cornell'])
+        
+
 
 if __name__ == '__main__':
     unittest.main()

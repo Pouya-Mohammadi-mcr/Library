@@ -145,15 +145,43 @@ def showSearch_Author():
     if "authorName" in request.args:
         authorName = request.args.get("authorName")
         args["authorName"] = authorName
+        matchedNum, matched = db.get_partial_match(authorName.lower(), allAuthors)
+
 
         if authorName.lower() in allAuthors:
             args["data"] = db.get_author_stat(authorName.lower())
             args["search"] = True
             args["invalid"] = False
+        elif matchedNum == 1:
+            args["data"] = db.get_author_stat(matched[0])
+            args["search"] = True
+            args["invalid"] = False
+        elif matchedNum > 1:
+            args["search"] = False
+            args["invalid"] = False
+            args["multipleMatch"] = True
+            args["matches"] = db.get_partial_match(authorName.lower(), allAuthors)
+            lastname_sort = sorted(args['matches'][1], key=lambda x: x.split()[-1])
+            args["sortedname"] = sorted(lastname_sort, key=lambda x: x.split()[0])
 
         else:
             args["invalid"] = True
     else:
         args["search"] = False
-
+    
     return render_template('search_author.html', args=args)
+
+
+
+@app.route("/author_stats")
+def showAuthor_Stats():
+    dataset = app.config['DATASET']
+    db = app.config['DATABASE']
+    args = {"dataset":dataset, "id":"author_stat"}
+    args["title"] = "Author Stats"
+    if "authorName" in request.args:
+        authorName = request.args.get("authorName")
+        args["authorName"] = authorName
+        args["data"] = db.get_author_stat(authorName.lower())
+            
+    return render_template('author_stats.html', args=args)

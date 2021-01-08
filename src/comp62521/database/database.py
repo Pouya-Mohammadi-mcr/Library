@@ -2,6 +2,8 @@ from comp62521.statistics import average
 import itertools
 import numpy as np
 import xml.sax
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 
 PublicationType = ["Conference Paper", "Journal", "Book", "Book Chapter"]
 
@@ -279,6 +281,15 @@ class Database:
                 astats[6] = i[1]
                 astats[7] = i[2]
         return header, astats
+
+    def get_partial_match(self, authorName, allAuthors):
+        matchScore = {}
+        matched = []
+        for i in allAuthors:
+            matchScore[i] = fuzz.partial_ratio(authorName, i)
+            if matchScore[i] == 100:
+                matched.append(i)
+        return len(matched), matched
 
     def get_all_author_names_lower(self):
         data = []

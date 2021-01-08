@@ -40,8 +40,7 @@ block content %}
 
           if (isNaN(numLastname1) == false) {
             v1_lastname = v1.split(/[\s,]+/).slice(-2, -1)[0];
-
-          } 
+          }
           if (isNaN(numLastname2) == false) {
             v2_lastname = v2.split(/[\s,]+/).slice(-2, -1)[0];
           }
@@ -53,9 +52,34 @@ block content %}
             ? v1_lastname - v2_lastname
             : v1_lastname.toString().localeCompare(v2_lastname);
         } else {
-          return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
-            ? v1 - v2
-            : v1.toString().localeCompare(v2);
+          isAuthorCol = document.getElementsByTagName("th")[0].innerHTML == 'Author' // check if there is author column
+          if (v1 - v2 == 0 && isAuthorCol) { // values are the same and the first col is Author
+            n1 = getCellValue(a, 0); // get the value in column[0]
+            n2 = getCellValue(b, 0);
+
+            n1_lastname = n1.split(/[\s,]+/).pop();
+            n2_lastname = n2.split(/[\s,]+/).pop();
+
+            numLastname1 = parseInt(n1_lastname.toString());
+            numLastname2 = parseInt(n2_lastname.toString());
+
+            if (isNaN(numLastname1) == false) {
+              n1_lastname = n1.split(/[\s,]+/).slice(-2, -1)[0];
+            }
+            if (isNaN(numLastname2) == false) {
+              n2_lastname = n2.split(/[\s,]+/).slice(-2, -1)[0];
+            }
+
+            return n1_lastname !== "" && n2_lastname !== "" && !isNaN(n1_lastname) && !isNaN(n2_lastname)
+              ? n1_lastname - n2_lastname
+              : n1_lastname.toString().localeCompare(n2_lastname);
+
+          } else {
+            // numbers are different
+            return v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
+              ? v1 - v2
+              : v1.toString().localeCompare(v2);
+          }
         }
       })(getCellValue(asc ? b : a, idx), getCellValue(asc ? a : b, idx));
     };

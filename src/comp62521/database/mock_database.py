@@ -9,7 +9,12 @@ class MockDatabase:
     # Return tuple containing headers and list of data
     def get_publications_by_author(self):
         return ('Author', 'Number of conference papers', 'Number of journals', 'Number of books',
-                'Number of book chapters', 'Total'), [('Buthor1', 1, 2, 3, 4, 10), ('Cuthor2', 5, 6, 7, 8, 26),('Author3', 3, 3, 4, 1, 20)]
+                'Number of book chapters', 'Total'), \
+               [
+                ('Author C', 1, 6, 7, 8, 26),
+                ('Author D', 5, 5, 2, 6, 21),
+                ('Author B', 1, 5, 4, 5, 23),
+                ('Author A', 1, 5, 7, 4, 10)]
 
     # Return tuple containing headers and list of data
     def get_publications_by_year(self):

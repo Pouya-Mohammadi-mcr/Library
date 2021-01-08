@@ -38,10 +38,10 @@ block content %}
 
       {% if args.multipleMatch %}
     </br>
-        {% for row in args.matches[1] %}
-        <a href="/author_stats?authorName={{row}}" ">Stats for {{ row }}</a></br>
+        {% for row in args.sortedname %}
+        <a href="/author_stats?authorName={{row}}">Stats for {{ row }}</a></br>
         {% endfor %}
       {% endif %}
 
-     
+
 {% endblock %}

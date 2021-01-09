@@ -449,7 +449,72 @@ class Database:
                 if a < a2:
                     links.add((a, a2))
         return nodes, links
+        
+    def sort_result(self, input, searchedAuthorName):
+        # authorName = ['Brian Sam Alice', 'Sam Alice', 'Samuel Alice', 'Alice Sam Brian',
+        #               'Sam Brian', 'Samuel Brian', 'Alice Esam', 'Brian Esam', 'Alice Sam',
+        #               'Brian Sam', 'Alice Sammer', 'Brian Sammer', 'Alice Samming',
+        #               'Brian Samming', 'Mona Zaki']
+        # searchedAuthorName = ['Brian Sam Alice', 'Sam Alice', 'Samuel Alice', 'Alice Sam Brian',
+        #               'Sam Brian', 'Samuel Brian', 'Alice Esam', 'Brian Esam', 'Brian Sam',
+        #               'Alice Sam', 'Alice Sammer', 'Brian Sammer', 'Alice Samming',
+        #               'Brian Samming']
+        # print(searchedAuthorName)
+        searchValue = input
+        searchValue = searchValue.lower()
+        length = len(searchValue)
+        sort1 = []
+        for i in searchedAuthorName:
+            if (i.split()[-1][0:length].lower() == searchValue):
+                sort1.append(i)
+        # print(sort1)
+        sort1.sort(key=lambda x: (x.split()[0]))
+        sort1.sort(key=lambda x: (x.split()[-1]))
+        # print(sort1)
+        for i in sort1:
+            searchedAuthorName.remove(i)
 
+        sort2 = []
+        for i in searchedAuthorName:
+            if (i.split()[0][0:length].lower() == searchValue):
+                sort2.append(i)
+        # print(sort2)
+        sort2.sort(key=lambda x: (x.split()[0]))
+        sort2.sort(key=lambda x: (x.split()[-1]))
+        # print(sort2)
+        for i in sort2:
+            searchedAuthorName.remove(i)
+
+        sort3 = []
+        for i in searchedAuthorName:
+            if (len(i.split()) == 3 and i.split()[1][0:length].lower() == searchValue):
+                sort3.append(i)
+        # print('3:')
+        # print(sort3)
+        sort3.sort(key=lambda x: (x.split()[0]))
+        sort3.sort(key=lambda x: (x.split()[-1]))
+        # print(sort3)
+        for i in sort3:
+            searchedAuthorName.remove(i)
+
+        # print(searchedAuthorName)
+        sort4 = []
+        for i in searchedAuthorName:
+            if (searchValue in i.split()[-1].lower()):
+                sort4.append(i)
+        # print('4:')
+        # print(sort4)
+        sort4.sort(key=lambda x: (x.split()[0]))
+        sort4.sort(key=lambda x: (x.split()[-1]))
+        # print(sort4)
+        for i in sort4:
+            searchedAuthorName.remove(i)
+
+        searchedAuthorName.sort(key=lambda x: x.split()[0])
+        searchedAuthorName.sort(key=lambda x: x.split()[-1])
+
+        res = sort1 + sort2 + sort3 + sort4 + searchedAuthorName
+        return (res)
 
 class DocumentHandler(xml.sax.handler.ContentHandler):
     TITLE_TAGS = ["sub", "sup", "i", "tt", "ref"]

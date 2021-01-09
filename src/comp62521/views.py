@@ -162,8 +162,7 @@ def showSearch_Author():
             args["invalid"] = False
             args["multipleMatch"] = True
             args["matches"] = db.get_partial_match(authorName.lower(), allAuthors)
-            lastname_sort = sorted(args['matches'][1], key=lambda x: x.split()[-1])
-            args["sortedname"] = sorted(lastname_sort, key=lambda x: x.split()[0])
+            args["sortedname"]=db.sort_result(authorName,args['matches'][1])
 
         else:
             args["invalid"] = True

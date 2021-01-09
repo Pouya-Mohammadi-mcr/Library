@@ -493,6 +493,7 @@ class Database:
         # print(sort3)
         sort3.sort(key=lambda x: (x.split()[0]))
         sort3.sort(key=lambda x: (x.split()[-1]))
+        sort3.sort(key=lambda x: (x.split()[1]))
         # print(sort3)
         for i in sort3:
             searchedAuthorName.remove(i)

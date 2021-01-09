@@ -283,7 +283,7 @@ class TestDatabase(unittest.TestCase):
                               'Brian Samming']
         input='Sam'
         res=db.sort_result("Sam",searchedAuthorName)
-        self.assertEqual(res,['Alice Sam', 'Brian Sam', 'Alice Sammer', 'Brian Sammer', 'Alice Samming', 'Brian Samming', 'Sam Alice', 'Samuel Alice', 'Sam Brian', 'Samuel Brian', 'Brian Sam Alice', 'Alice Sam Brian', 'Alice Esam', 'Brian Esam'])
+        self.assertEqual(res,['Alice Sam', 'Brian Sam', 'Alice Sammer', 'Brian Sammer', 'Alice Samming', 'Brian Samming', 'Sam Alice','Sam Brian','Samuel Alice', 'Samuel Brian', 'Brian Sam Alice', 'Alice Sam Brian', 'Alice Esam', 'Brian Esam'])
         
 
 

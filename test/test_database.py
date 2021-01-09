@@ -274,6 +274,16 @@ class TestDatabase(unittest.TestCase):
         matchedNum, matched = db.get_partial_match("cornell", allAuthors)
         self.assertEqual(matchedNum, 1)
         self.assertEqual(matched, ['mike cornell'])
+    
+    def test_sort_result(self):
+        db = database.Database()
+        searchedAuthorName = ['Brian Sam Alice', 'Sam Alice', 'Samuel Alice', 'Alice Sam Brian',
+                              'Sam Brian', 'Samuel Brian', 'Alice Esam', 'Brian Esam', 'Brian Sam',
+                              'Alice Sam', 'Alice Sammer', 'Brian Sammer', 'Alice Samming',
+                              'Brian Samming']
+        input='Sam'
+        res=db.sort_result("Sam",searchedAuthorName)
+        self.assertEqual(res,['Alice Sam', 'Brian Sam', 'Alice Sammer', 'Brian Sammer', 'Alice Samming', 'Brian Samming', 'Sam Alice', 'Samuel Alice', 'Sam Brian', 'Samuel Brian', 'Brian Sam Alice', 'Alice Sam Brian', 'Alice Esam', 'Brian Esam'])
         
 
 

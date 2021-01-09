@@ -479,8 +479,8 @@ class Database:
             if (i.split()[0][0:length].lower() == searchValue):
                 sort2.append(i)
         # print(sort2)
-        sort2.sort(key=lambda x: (x.split()[0]))
         sort2.sort(key=lambda x: (x.split()[-1]))
+        sort2.sort(key=lambda x: (x.split()[0]))
         # print(sort2)
         for i in sort2:
             searchedAuthorName.remove(i)

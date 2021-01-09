@@ -156,6 +156,7 @@ def showSearch_Author():
             args["data"] = db.get_author_stat(matched[0])
             args["search"] = True
             args["invalid"] = False
+            args["authorName"] = matched[0]
         elif matchedNum > 1:
             args["search"] = False
             args["invalid"] = False

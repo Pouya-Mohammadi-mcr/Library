@@ -1,4 +1,5 @@
 from comp62521.statistics import average
+from comp62521.statistics import author_count
 import itertools
 import numpy as np
 import xml.sax
@@ -516,6 +517,68 @@ class Database:
 
         res = sort1 + sort2 + sort3 + sort4 + searchedAuthorName
         return (res)
+
+    def get_author_details(self, start_year, end_year, pub_type):
+        header = ("Author",
+                  "First author",
+                  "Last author",
+                  "Sole author")
+
+        astats = [ [0, 0, 0] for _ in range(len(self.authors)) ]
+
+        for p in self.publications:
+            if ( (start_year == None or p.year >= start_year) and
+                (end_year == None or p.year <= end_year) and
+                (pub_type == 4 or pub_type == p.pub_type) ):
+                    if p.authors[0] == p.authors[-1]:
+                        astats[p.authors[0]][2] += 1
+                    else:
+                        astats[p.authors[0]][0] += 1
+                        astats[p.authors[-1]][1] += 1
+        data = [[self.authors[i].name] + astats[i]
+                for i in range(len(astats))]
+        return header, data
+
+
+    def get_author_stats_by_click(self,author):
+        coauthors = {}
+        author_name = ''
+        author_found = False
+        NoPublications = [0, 0, 0, 0, 0]
+        NoFirstAuthor = [0, 0, 0, 0, 0]
+        NoLastAuthor = [0, 0, 0, 0, 0]
+        NoSoleAuthor = [0, 0, 0, 0, 0]
+        NoCoAuthor = 0
+
+        for p in self.publications:
+            for a in p.authors:
+                if str(self.authors[a].name) == author:
+                    author_found = True
+                    author_name = self.authors[a].name
+                    NoPublications[p.pub_type + 1] += 1
+                    for a2 in p.authors:
+                        if a != a2:
+                            try:
+                                coauthors[a].add(a2)
+                            except KeyError:
+                                coauthors[a] = set([a2])
+                    try:
+                        NoCoAuthor = len(coauthors[a])
+                    except:
+                        NoCoAuthor = 0
+
+
+                    NoFirstAuthor[p.pub_type + 1] += author_count.appearing_first(a, p.authors)
+                    NoLastAuthor[p.pub_type + 1] += author_count.appearing_last(a, p.authors)
+                    NoSoleAuthor[p.pub_type + 1] += author_count.appearing_sole(a, p.authors)
+
+                    NoPublications[0] = NoPublications[1] + NoPublications[2] + NoPublications[3] + NoPublications[4]
+                    NoFirstAuthor[0] = NoFirstAuthor[1] + NoFirstAuthor[2] + NoFirstAuthor[3] + NoFirstAuthor[4]
+                    NoLastAuthor[0] = NoLastAuthor[1] + NoLastAuthor[2] + NoLastAuthor[3] + NoLastAuthor[4]
+                    NoSoleAuthor[0] = NoSoleAuthor[1] + NoSoleAuthor[2] + NoSoleAuthor[3] + NoSoleAuthor[4]
+
+        return author_found, NoPublications, NoFirstAuthor, NoLastAuthor, NoSoleAuthor, NoCoAuthor, author_name
+
 
 class DocumentHandler(xml.sax.handler.ContentHandler):
     TITLE_TAGS = ["sub", "sup", "i", "tt", "ref"]

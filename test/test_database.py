@@ -223,6 +223,26 @@ class TestDatabase(unittest.TestCase):
         header, data = db.get_author_firstlastsole()
         self.assertEqual(data, [['AUTHOR1', 1, 0, 2], ['AUTHOR2', 0, 1, 0], ['AUTHOR3', 2, 1, 0], ['AUTHOR4', 0, 2, 0],
                                 ['AUTHOR6', 1, 0, 0], ['AUTHOR7', 0, 0, 1], ['AUTHOR8', 0, 0, 2]])
+
+    def test_get_author_details(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-1.xml")))
+        header, data = db.get_author_details(9999, 9999, 0)
+        self.assertEqual(data, [['AUTHOR1', 1, 1, 0], ['AUTHOR2', 0, 1, 0], ['AUTHOR3', 0, 1, 0], ['AUTHOR4', 2, 0, 0]])
+        header, data = db.get_author_details(9999, 9999, 1)
+        self.assertEqual(data, [['AUTHOR1', 0, 0, 0], ['AUTHOR2', 0, 0, 0], ['AUTHOR3', 0, 0, 0], ['AUTHOR4', 0, 0, 0]])
+
+    def test_get_author_stats_by_click(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-1.xml")))
+        data = db.get_author_stats_by_click("AUTHOR1")
+        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [1, 1, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 3, "AUTHOR1"))
+        data = db.get_author_stats_by_click("AUTHOR2")
+        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 3, "AUTHOR2"))
+        data = db.get_author_stats_by_click("AUTHOR3")
+        self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR3"))
+        data = db.get_author_stats_by_click("AUTHOR4")
+        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR4"))
         
 
     def test_get_author_stat(self):

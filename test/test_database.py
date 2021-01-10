@@ -2,7 +2,7 @@ from os import path
 import unittest
 
 from comp62521.database import database
-
+from comp62521.statistics import author_count
 
 class TestDatabase(unittest.TestCase):
 
@@ -231,19 +231,15 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(data, [['AUTHOR1', 1, 1, 0], ['AUTHOR2', 0, 1, 0], ['AUTHOR3', 0, 1, 0], ['AUTHOR4', 2, 0, 0]])
         header, data = db.get_author_details(9999, 9999, 1)
         self.assertEqual(data, [['AUTHOR1', 0, 0, 0], ['AUTHOR2', 0, 0, 0], ['AUTHOR3', 0, 0, 0], ['AUTHOR4', 0, 0, 0]])
-
-    def test_get_author_stats_by_click(self):
-        db = database.Database()
-        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-1.xml")))
-        data = db.get_author_stats_by_click("AUTHOR1")
-        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [1, 1, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 3, "AUTHOR1"))
-        data = db.get_author_stats_by_click("AUTHOR2")
-        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 3, "AUTHOR2"))
-        data = db.get_author_stats_by_click("AUTHOR3")
-        self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR3"))
-        data = db.get_author_stats_by_click("AUTHOR4")
-        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR4"))
-        
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-2.xml")))
+        header, data = db.get_author_details(9999, 9999, 0)
+        self.assertEqual(data, [['AUTHOR1', 2, 0, 1], ['AUTHOR3', 0, 0, 0], ['AUTHOR4', 0, 2, 0], ['AUTHOR2', 0, 0, 0]])
+        header, data = db.get_author_details(9999, 9999, 1)
+        self.assertEqual(data, [['AUTHOR1', 0, 0, 0], ['AUTHOR3', 0, 0, 0], ['AUTHOR4', 0, 0, 0], ['AUTHOR2', 0, 0, 0]])
+        header, data = db.get_author_details(9999, 9999, 2)
+        self.assertEqual(data, [['AUTHOR1', 0, 0, 0], ['AUTHOR3', 0, 0, 0], ['AUTHOR4', 0, 0, 0], ['AUTHOR2', 0, 0, 1]])
+        header, data = db.get_author_details(9999, 9999, 3)
+        self.assertEqual(data, [['AUTHOR1', 0, 0, 0], ['AUTHOR3', 0, 0, 0], ['AUTHOR4', 0, 0, 0], ['AUTHOR2', 0, 0, 0]])
 
     def test_get_author_stat(self):
         db = database.Database()
@@ -304,8 +300,63 @@ class TestDatabase(unittest.TestCase):
         input='Sam'
         res=db.sort_result("Sam",searchedAuthorName)
         self.assertEqual(res,['Alice Sam', 'Brian Sam', 'Alice Sammer', 'Brian Sammer', 'Alice Samming', 'Brian Samming', 'Sam Alice','Sam Brian','Samuel Alice', 'Samuel Brian', 'Brian Sam Alice', 'Alice Sam Brian', 'Alice Esam', 'Brian Esam'])
-        
 
+
+    def test_first_appearance(self):
+        self.assertEqual(author_count.appearing_first("oguz", ["oguz"]), 0)
+        self.assertEqual(author_count.appearing_first("oguz", ["oguz", "a"]), 1)
+        self.assertEqual(author_count.appearing_first("oguz", ["b", "oguz", "a"]), 0)
+        self.assertEqual(author_count.appearing_first("oguz",["a","b","c"]),0)
+
+    def test_first_appearance_for_lists(self):
+        self.assertEqual(author_count.appearing_first_for_lists("oguz", [["oguz"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 1)
+        self.assertEqual(author_count.appearing_first_for_lists("k", [["oguz"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 0)
+        self.assertEqual(author_count.appearing_first_for_lists("k", [["oguz"], ["k", "oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 1)
+
+    def test_last_appearance(self):
+        self.assertEqual(author_count.appearing_last("oguz", ["oguz"]), 0)
+        self.assertEqual(author_count.appearing_last("oguz", ["a", "oguz"]), 1)
+        self.assertEqual(author_count.appearing_last("oguz", ["a", "oguz", "b"]), 0)
+        self.assertEqual(author_count.appearing_last("oguz",["a","b","c"]),0)
+
+    def test_last_appearance_for_lists(self):
+        self.assertEqual(author_count.appearing_last_for_lists("oguz", [["oguz"], ["oguz", "a"], ["b", "a", "oguz"], ["a","b","c"]]), 1)
+        self.assertEqual(author_count.appearing_last_for_lists("k", [["oguz"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 0)
+        self.assertEqual(author_count.appearing_last_for_lists("k", [["k"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 0)
+
+    def test_sole_author(self):
+        self.assertEqual(author_count.appearing_sole("Marta", ["Marta"]), 1)
+        self.assertEqual(author_count.appearing_sole("Marta",["Coco"]),0)
+        self.assertEqual(author_count.appearing_sole("Coco",["Marta","oguz","Coco"]),0)
+        self.assertEqual(author_count.appearing_sole("Coco", []), 0)
+        self.assertEqual(author_count.appearing_sole("Coco",["oguz"]),0)
+
+    def test_sole_appearance_for_lists(self):
+        self.assertEqual(author_count.appearing_sole_for_lists("oguz", [["oguz"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 1)
+        self.assertEqual(author_count.appearing_sole_for_lists("k", [["oguz"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 0)
+        self.assertEqual(author_count.appearing_sole_for_lists("k", [["k"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"], ["k"]]), 2)
+        self.assertEqual(author_count.appearing_sole_for_lists("Coco",[["Coco"],["Coco"]]),2)
+
+    def test_get_author_stats_by_click(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-1.xml")))
+        data = db.get_author_stats_by_click("AUTHOR1")
+        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [1, 1, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 3, "AUTHOR1"))
+        data = db.get_author_stats_by_click("AUTHOR2")
+        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 3, "AUTHOR2"))
+        data = db.get_author_stats_by_click("AUTHOR3")
+        self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR3"))
+        data = db.get_author_stats_by_click("AUTHOR4")
+        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR4"))
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-2.xml")))
+        data = db.get_author_stats_by_click("AUTHOR1")
+        self.assertEqual(data, (True, [3, 3, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], 2, "AUTHOR1"))
+        data = db.get_author_stats_by_click("AUTHOR2")
+        self.assertEqual(data, (True, [1, 0, 0, 1, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [1, 0, 0, 1, 0], 0, "AUTHOR2"))
+        data = db.get_author_stats_by_click("AUTHOR3")
+        self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR3"))
+        data = db.get_author_stats_by_click("AUTHOR4")
+        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR4"))
 
 if __name__ == '__main__':
     unittest.main()

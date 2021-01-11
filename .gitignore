@@ -12,3 +12,6 @@ src/comp62521/statistics/.DS_Store
 .DS_Store
 
 __pycache__/
+
+# Ignore .idea files
+.idea/

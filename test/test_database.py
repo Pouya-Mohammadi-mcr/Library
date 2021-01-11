@@ -2,7 +2,6 @@ from os import path
 import unittest
 
 from comp62521.database import database
-from comp62521.statistics import author_count
 
 class TestDatabase(unittest.TestCase):
 
@@ -300,42 +299,6 @@ class TestDatabase(unittest.TestCase):
         input='Sam'
         res=db.sort_result("Sam",searchedAuthorName)
         self.assertEqual(res,['Alice Sam', 'Brian Sam', 'Alice Sammer', 'Brian Sammer', 'Alice Samming', 'Brian Samming', 'Sam Alice','Sam Brian','Samuel Alice', 'Samuel Brian', 'Brian Sam Alice', 'Alice Sam Brian', 'Alice Esam', 'Brian Esam'])
-
-
-    def test_first_appearance(self):
-        self.assertEqual(author_count.appearing_first("oguz", ["oguz"]), 0)
-        self.assertEqual(author_count.appearing_first("oguz", ["oguz", "a"]), 1)
-        self.assertEqual(author_count.appearing_first("oguz", ["b", "oguz", "a"]), 0)
-        self.assertEqual(author_count.appearing_first("oguz",["a","b","c"]),0)
-
-    def test_first_appearance_for_lists(self):
-        self.assertEqual(author_count.appearing_first_for_lists("oguz", [["oguz"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 1)
-        self.assertEqual(author_count.appearing_first_for_lists("k", [["oguz"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 0)
-        self.assertEqual(author_count.appearing_first_for_lists("k", [["oguz"], ["k", "oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 1)
-
-    def test_last_appearance(self):
-        self.assertEqual(author_count.appearing_last("oguz", ["oguz"]), 0)
-        self.assertEqual(author_count.appearing_last("oguz", ["a", "oguz"]), 1)
-        self.assertEqual(author_count.appearing_last("oguz", ["a", "oguz", "b"]), 0)
-        self.assertEqual(author_count.appearing_last("oguz",["a","b","c"]),0)
-
-    def test_last_appearance_for_lists(self):
-        self.assertEqual(author_count.appearing_last_for_lists("oguz", [["oguz"], ["oguz", "a"], ["b", "a", "oguz"], ["a","b","c"]]), 1)
-        self.assertEqual(author_count.appearing_last_for_lists("k", [["oguz"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 0)
-        self.assertEqual(author_count.appearing_last_for_lists("k", [["k"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 0)
-
-    def test_sole_author(self):
-        self.assertEqual(author_count.appearing_sole("Marta", ["Marta"]), 1)
-        self.assertEqual(author_count.appearing_sole("Marta",["Coco"]),0)
-        self.assertEqual(author_count.appearing_sole("Coco",["Marta","oguz","Coco"]),0)
-        self.assertEqual(author_count.appearing_sole("Coco", []), 0)
-        self.assertEqual(author_count.appearing_sole("Coco",["oguz"]),0)
-
-    def test_sole_appearance_for_lists(self):
-        self.assertEqual(author_count.appearing_sole_for_lists("oguz", [["oguz"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 1)
-        self.assertEqual(author_count.appearing_sole_for_lists("k", [["oguz"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"]]), 0)
-        self.assertEqual(author_count.appearing_sole_for_lists("k", [["k"], ["oguz", "a"], ["b", "oguz", "a"], ["a","b","c"], ["k"]]), 2)
-        self.assertEqual(author_count.appearing_sole_for_lists("Coco",[["Coco"],["Coco"]]),2)
 
     def test_get_author_stats_by_click(self):
         db = database.Database()

@@ -1,5 +1,4 @@
 from comp62521.statistics import average
-from comp62521.statistics import author_count
 import itertools
 import numpy as np
 import xml.sax
@@ -567,10 +566,12 @@ class Database:
                     except:
                         NoCoAuthor = 0
 
-
-                    NoFirstAuthor[p.pub_type + 1] += author_count.appearing_first(a, p.authors)
-                    NoLastAuthor[p.pub_type + 1] += author_count.appearing_last(a, p.authors)
-                    NoSoleAuthor[p.pub_type + 1] += author_count.appearing_sole(a, p.authors)
+                    if a == p.authors[0] and len(p.authors) > 1:
+                        NoFirstAuthor[p.pub_type + 1] += 1
+                    if a == p.authors[-1] and len(p.authors) > 1:
+                        NoLastAuthor[p.pub_type + 1] += 1
+                    if len(p.authors) == 1 and (a == p.authors[0]):
+                        NoSoleAuthor[p.pub_type + 1] += 1
 
                     NoPublications[0] = NoPublications[1] + NoPublications[2] + NoPublications[3] + NoPublications[4]
                     NoFirstAuthor[0] = NoFirstAuthor[1] + NoFirstAuthor[2] + NoFirstAuthor[3] + NoFirstAuthor[4]

@@ -321,5 +321,12 @@ class TestDatabase(unittest.TestCase):
         data = db.get_author_stats_by_click("AUTHOR4")
         self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR4"))
 
+
+    def test_get_all_publications(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_sorting_example.xml")))
+        data = db.get_all_publications()
+        
+
 if __name__ == '__main__':
     unittest.main()

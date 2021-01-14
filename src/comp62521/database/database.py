@@ -538,6 +538,15 @@ class Database:
                 for i in range(len(astats))]
         return header, data
 
+    def get_cs_staff(self):
+        with open('data/CS-staff.txt') as f:
+            staff = list()
+            Lines = f.readlines()
+            converted_Lines = []
+            for line in Lines:
+                if line:
+                    converted_Lines.append(line.strip())
+            return converted_Lines
 
     def get_author_stats_by_click(self,author):
         coauthors = {}
@@ -578,7 +587,7 @@ class Database:
                     NoLastAuthor[0] = NoLastAuthor[1] + NoLastAuthor[2] + NoLastAuthor[3] + NoLastAuthor[4]
                     NoSoleAuthor[0] = NoSoleAuthor[1] + NoSoleAuthor[2] + NoSoleAuthor[3] + NoSoleAuthor[4]
 
-        return author_found, NoPublications, NoFirstAuthor, NoLastAuthor, NoSoleAuthor, NoCoAuthor, author_name
+        return author_found, NoPublications, NoFirstAuthor, NoLastAuthor, NoSoleAuthor, NoCoAuthor, AuthorType, ExCoAuthorsList, NoExCoAuthors, author_name
 
 
 class DocumentHandler(xml.sax.handler.ContentHandler):

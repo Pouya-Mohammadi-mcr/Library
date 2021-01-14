@@ -300,6 +300,15 @@ class TestDatabase(unittest.TestCase):
         res=db.sort_result("Sam",searchedAuthorName)
         self.assertEqual(res,['Alice Sam', 'Brian Sam', 'Alice Sammer', 'Brian Sammer', 'Alice Samming', 'Brian Samming', 'Sam Alice','Sam Brian','Samuel Alice', 'Samuel Brian', 'Brian Sam Alice', 'Alice Sam Brian', 'Alice Esam', 'Brian Esam'])
 
+    def test_get_cs_staff(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_curated_sample.xml")))
+        data = db.get_cs_staff()
+        self.assertEqual(data, ["Sean Bechhofer", "Andy Brass", "Suzanne M. Embury", "Carole A. Goble", "Robert Haines", "Simon Harper",
+                                "Duncan Hull", "Caroline Jay", "John A. Keane", "Goran Nenadic", "Bijan Parsia", "Norman W. Paton",
+                                "Steve Pettifer", "Rizos Sakellariou", "Sandra Sampaio", "Uli Sattler", "Robert Stevens", "Chris Taylor",
+                                "Markel Vigo", "Ning Zhang"])
+
     def test_get_author_stats_by_click(self):
         db = database.Database()
         self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-1.xml")))
@@ -320,6 +329,7 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR3"))
         data = db.get_author_stats_by_click("AUTHOR4")
         self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR4"))
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -581,6 +581,10 @@ class Database:
         return author_found, NoPublications, NoFirstAuthor, NoLastAuthor, NoSoleAuthor, NoCoAuthor, author_name
 
 
+    def get_all_publications(self):
+
+        return []
+
 class DocumentHandler(xml.sax.handler.ContentHandler):
     TITLE_TAGS = ["sub", "sup", "i", "tt", "ref"]
     PUB_TYPE = {

@@ -229,5 +229,8 @@ def showAuthorSearchByClick():
 @app.route("/publication_link")
 def showAllPublications():
     dataset = app.config['DATASET']
-    args = {"dataset": dataset}
+    db = app.config['DATABASE']
+    args = {"dataset": dataset, "id": "all_publications_link"}
+    args['AllPublications'] = db.get_all_publications()
+
     return render_template('publication_link.html', args=args)

@@ -582,8 +582,12 @@ class Database:
 
 
     def get_all_publications(self):
-        
-        return []
+        all_title = []
+        for p in self.publications:
+            all_title.append(p.title)
+
+        return all_title
+
 
 class DocumentHandler(xml.sax.handler.ContentHandler):
     TITLE_TAGS = ["sub", "sup", "i", "tt", "ref"]

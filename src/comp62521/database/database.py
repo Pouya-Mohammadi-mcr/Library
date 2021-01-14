@@ -582,7 +582,7 @@ class Database:
 
 
     def get_all_publications(self):
-
+        
         return []
 
 class DocumentHandler(xml.sax.handler.ContentHandler):

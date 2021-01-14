@@ -111,16 +111,31 @@
                 </thead>
                 <tbody>
                 <tr>
-
                     <td> {{ args.NoCoAuthor }}</td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
+        <div class="col-md-12">
+            <h4> Ex-coauthors </h4>
+            <table class="table table-striped display" >
+                <thead>
+                <tr>
+                    <th><br>Type</th>
+                    <th><br>Name List</th>
+                    <th><br>Number</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td> {{ args.AuthorType }}</td>
+                    <td> {{ args.ExCoAuthorsList }}</td>
+                    <td> {{ args.NoExCoAuthors }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
-
-
-
-
 {% endblock %}

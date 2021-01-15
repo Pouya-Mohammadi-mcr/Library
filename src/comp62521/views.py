@@ -231,6 +231,6 @@ def showAllPublications():
     dataset = app.config['DATASET']
     db = app.config['DATABASE']
     args = {"dataset": dataset, "id": "all_publications_link"}
-    args['AllPublications'] = db.get_all_publications()
+    args['data'] = db.get_all_publications()
 
     return render_template('publication_link.html', args=args)

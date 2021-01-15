@@ -385,12 +385,12 @@ class TestDatabase(unittest.TestCase):
         self.assertTrue(
             db.read(path.join(self.data_dir, "publications_small_sample.xml")))
         data = db.get_all_publications()
-        self.assertEqual(data, {'Knowledge-Driven Hyperlinks: Linking in the Wild.': 'http://dx.doi.org/10.1007/11768012_1',
-                                'Middleware to expand context and preview in hypertext.' : 'http://doi.acm.org/10.1145/1028630.1028643', 
-                                'Designing Database Applications with Objects and Rules: The IDEA Methodology': None,
-                                'Rules in Data-Based Systems.': None, 
-                                'Conceptual data modelling for bioinformatics.' : 'http://dx.doi.org/10.1093/bib/3.2.166', 
-                                'Data curation + process curation=data integration + science.': 'http://dx.doi.org/10.1093/bib/bbn034'})
+        self.assertEqual(data,('Publications', 'Link'),[['Knowledge-Driven Hyperlinks: Linking in the Wild.', 'http://dx.doi.org/10.1007/11768012_1'],
+                                ['Middleware to expand context and preview in hypertext.', 'http://doi.acm.org/10.1145/1028630.1028643'], 
+                                ['Designing Database Applications with Objects and Rules: The IDEA Methodology', None],
+                                ['Rules in Data-Based Systems.', None], 
+                                ['Conceptual data modelling for bioinformatics.', 'http://dx.doi.org/10.1093/bib/3.2.166'], 
+                                ['Data curation + process curation=data integration + science.', 'http://dx.doi.org/10.1093/bib/bbn034']])
 
 
 if __name__ == '__main__':

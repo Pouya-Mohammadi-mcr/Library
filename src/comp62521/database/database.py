@@ -15,7 +15,7 @@ class Publication:
     BOOK = 2
     BOOK_CHAPTER = 3
 
-    def __init__(self, pub_type, title, link , year, authors, booktitle, journ, vol, pages, number):
+    def __init__(self, pub_type, title, link , year, authors, booktitle, journ, vol, pages, number, crossref):
         self.pub_type = pub_type
         self.title = title
         self.link = link
@@ -24,6 +24,7 @@ class Publication:
         self.vol = vol
         self.pages = pages
         self.number = number
+        self.crossref = crossref
         if year:
             self.year = int(year)
         else:
@@ -384,7 +385,7 @@ class Database:
         return header, data
 
 
-    def add_publication(self, pub_type, title, link , year, authors, booktitle, journ, vol, pages, number):
+    def add_publication(self, pub_type, title, link , year, authors, booktitle, journ, vol, pages, number, crossref):
         if year is None or len(authors) == 0:
             print("Warning: excluding publication due to missing information")
             print("    Publication type:", PublicationType[pub_type])
@@ -405,7 +406,7 @@ class Database:
                 idlist.append(a_id)
                 self.authors.append(Author(a))
         self.publications.append(
-            Publication(pub_type, title, link, year, idlist, booktitle, journ, vol, pages, number))
+            Publication(pub_type, title, link, year, idlist, booktitle, journ, vol, pages, number, crossref))
         if (len(self.publications) % 100000) == 0:
             print(
                 f"Adding publication number {len(self.publications)} "
@@ -589,7 +590,7 @@ class Database:
 
 
     def get_all_publications(self):
-        header = ('Publications', 'Authors', 'Year', 'Book title', 'Journal', 'Volume', 'Pages', 'Number')
+        header = ('Publications', 'Authors', 'Year', 'Book title', 'Journal', 'Volume', 'Pages', 'Number', 'Cross reference')
         all_publications = []
         
         for p in self.publications:
@@ -601,10 +602,11 @@ class Database:
             vol = '-' if p.vol == None else p.vol
             pages = '-' if p.pages == None else p.pages
             number = '-' if p.number == None else p.number
+            crossref = '-' if p.crossref == None else p.crossref
 
             if link_valid:
                 authors_list = ', '.join([self.authors[i].name for i in p.authors])
-                all_publications.append([p.title, p.link, authors_list, p.year, booktitle, jn, vol, pages, number])
+                all_publications.append([p.title, p.link, authors_list, p.year, booktitle, jn, vol, pages, number, crossref])
         return header, all_publications
 
 
@@ -632,6 +634,7 @@ class DocumentHandler(xml.sax.handler.ContentHandler):
         self.vol = None
         self.pages = None
         self.number = None
+        self.crossref = None
 
     def clearData(self):
         self.pub_type = None
@@ -643,6 +646,7 @@ class DocumentHandler(xml.sax.handler.ContentHandler):
         self.journ = None
         self.vol = None
         self.number = None
+        self.crossref = None
 
     def startDocument(self):
         pass
@@ -682,6 +686,8 @@ class DocumentHandler(xml.sax.handler.ContentHandler):
             self.pages = d
         elif self.tag == "number":
             self.number = d
+        elif self.tag == "crossref":
+            self.crossref = d
         elif name in DocumentHandler.PUB_TYPE.keys():
             self.db.add_publication(
                 self.pub_type,
@@ -693,7 +699,8 @@ class DocumentHandler(xml.sax.handler.ContentHandler):
                 self.journ,
                 self.vol,
                 self.pages,
-                self.number
+                self.number,
+                self.crossref
                 )
             self.clearData()
         self.tag = None

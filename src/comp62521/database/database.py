@@ -587,7 +587,10 @@ class Database:
         publication_link = []
         
         for p in self.publications:
-           publication_link.append([p.title, p.link])
+            if(p.link != None):
+                publication_link.append([p.title, p.link])
+            else:
+                pass
 
         return header, publication_link
 

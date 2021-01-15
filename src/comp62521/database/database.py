@@ -583,15 +583,13 @@ class Database:
 
 
     def get_all_publications(self):
-        title = []
-        link = []
+        header = ('Publications', 'Link')
+        publication_link = []
         
         for p in self.publications:
-            title.append(p.title)
-            link.append(p.link)
-        publication_link = dict(zip(title, link))
+           publication_link.append([p.title, p.link])
 
-        return publication_link
+        return header, publication_link
 
 
 class DocumentHandler(xml.sax.handler.ContentHandler):

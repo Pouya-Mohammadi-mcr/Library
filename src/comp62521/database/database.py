@@ -584,7 +584,7 @@ class Database:
 
 
     def get_all_publications(self):
-        header = ('Publications', 'Link', 'Authors')
+        header = ('Publications', 'Authors')
         all_publications = []
         
         for p in self.publications:
@@ -592,7 +592,7 @@ class Database:
             authors_list = []
             if link_valid:
                 authors_list = ', '.join([self.authors[i].name for i in p.authors])
-                all_publications.append([p.title, p.link, authors_list])
+                all_publications.append([p.title, p.link, authors_list, p.year])
                 
         return header, all_publications
 

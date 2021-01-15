@@ -589,13 +589,13 @@ class Database:
 
 
     def get_all_publications(self):
-        header = ('Publications', 'Authors', 'Year', 'Book title', 'Journal', 'Volume', 'Pages')
+        header = ('Publications', 'Authors', 'Year', 'Book title', 'Journal', 'Volume', 'Pages', 'Number')
         all_publications = []
         
         for p in self.publications:
             link_valid = validators.url(str(p.link))
             authors_list = []
-            print(p.number)
+
             if p.booktitle == None:
                 booktitle = '-'
             else:

@@ -557,6 +557,15 @@ class Database:
         NoLastAuthor = [0, 0, 0, 0, 0]
         NoSoleAuthor = [0, 0, 0, 0, 0]
         NoCoAuthor = 0
+        isInternal = 0
+        AuthorType = 'External'
+        ExCoAuthorsList = []
+        NoExCoAuthors = 0
+        internal_staff = self.get_cs_staff()
+
+        if author in internal_staff:
+            isInternal = 1
+            AuthorType = 'Internal'
 
         for p in self.publications:
             for a in p.authors:
@@ -586,6 +595,13 @@ class Database:
                     NoFirstAuthor[0] = NoFirstAuthor[1] + NoFirstAuthor[2] + NoFirstAuthor[3] + NoFirstAuthor[4]
                     NoLastAuthor[0] = NoLastAuthor[1] + NoLastAuthor[2] + NoLastAuthor[3] + NoLastAuthor[4]
                     NoSoleAuthor[0] = NoSoleAuthor[1] + NoSoleAuthor[2] + NoSoleAuthor[3] + NoSoleAuthor[4]
+
+                    if isInternal == 1:
+                        for b in p.authors:
+                            bname = self.authors[b].name
+                            if bname not in internal_staff and bname not in ExCoAuthorsList:
+                                ExCoAuthorsList.append(bname)
+                                NoExCoAuthors += 1
 
         return author_found, NoPublications, NoFirstAuthor, NoLastAuthor, NoSoleAuthor, NoCoAuthor, AuthorType, ExCoAuthorsList, NoExCoAuthors, author_name
 

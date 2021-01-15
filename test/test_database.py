@@ -311,24 +311,14 @@ class TestDatabase(unittest.TestCase):
 
     def test_get_author_stats_by_click(self):
         db = database.Database()
-        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-1.xml")))
-        data = db.get_author_stats_by_click("AUTHOR1")
-        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [1, 1, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 3, "AUTHOR1"))
-        data = db.get_author_stats_by_click("AUTHOR2")
-        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 3, "AUTHOR2"))
-        data = db.get_author_stats_by_click("AUTHOR3")
-        self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR3"))
-        data = db.get_author_stats_by_click("AUTHOR4")
-        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR4"))
-        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-2.xml")))
-        data = db.get_author_stats_by_click("AUTHOR1")
-        self.assertEqual(data, (True, [3, 3, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], 2, "AUTHOR1"))
-        data = db.get_author_stats_by_click("AUTHOR2")
-        self.assertEqual(data, (True, [1, 0, 0, 1, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [1, 0, 0, 1, 0], 0, "AUTHOR2"))
-        data = db.get_author_stats_by_click("AUTHOR3")
-        self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR3"))
-        data = db.get_author_stats_by_click("AUTHOR4")
-        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR4"))
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_curated_sample.xml")))
+        data = db.get_author_stats_by_click("Bijan Parsia")
+        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 8, "Internal",
+                                ['Patrice Seyed', 'Alan L. Rector', 'Klitos Christodoulou', 'Alvaro A. A. Fernandes', 'Cornelia Hedeler'],
+                                5, "Bijan Parsia"))
+        data = db.get_author_stats_by_click("Markel Vigo")
+        self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 3, "Internal",
+                                ['Yeliz Yesilada', 'Giorgio Brajnik'], 2, "Markel Vigo"))
 
 
 if __name__ == '__main__':

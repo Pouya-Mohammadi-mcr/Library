@@ -391,7 +391,7 @@ class TestDatabase(unittest.TestCase):
              ['Ontology Matching: A Machine Learning Approach.', 'http://www.informatik.uni-trier.de/~ley/db/books/collections/StaabS2004.html#DoanMDH04',
                 'AnHai Doan, Jayant Madhavan, Pedro Domingos, Alon Y. Halevy', 2004, 'Handbook on Ontologies', '-', '-', '385-404'],
             ['Representing and Reasoning about Mappings between Domain Models.', 'http://www.informatik.uni-trier.de/~ley/db/conf/aaai/aaai2002.html#MadhavanBDH02',
-                 'Jayant Madhavan, Philip A. Bernstein, Pedro Domingos, Alon Y. Halevy', 2002, 'AAAI/IAAI', '-', '-', '-'],
+                 'Jayant Madhavan, Philip A. Bernstein, Pedro Domingos, Alon Y. Halevy', 2002, 'AAAI/IAAI', '-', '-', '80-86'],
             ['Learning to Match the Schemas of Data Sources: A Multistrategy Approach.','http://www.informatik.uni-trier.de/~ley/db/journals/ml/ml50.html#DoanDH03', 
                 'AnHai Doan, Pedro Domingos, Alon Y. Halevy', 2003, '-', 'Machine Learning', 50, '279-301'],
             ["Why your data won't mix.", 'http://www.informatik.uni-trier.de/~ley/db/journals/queue/queue3.html#Halevy05', 

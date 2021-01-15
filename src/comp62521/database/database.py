@@ -596,30 +596,11 @@ class Database:
             link_valid = validators.url(str(p.link))
             authors_list = []
 
-            if p.booktitle == None:
-                booktitle = '-'
-            else:
-                booktitle = p.booktitle
-            
-            if p.journ == None:
-                jn = '-'
-            else:
-                jn = p.journ
-
-            if p.vol == None:
-                vol = '-'
-            else:
-                vol = int(p.vol)
-            
-            if p.pages == None:
-                pages = '-'
-            else:
-                pages = str(p.pages)
-
-            if p.number == None:
-                number = '-'
-            else:
-                number = int(p.number)
+            booktitle = '-' if p.booktitle == None else p.booktitle
+            jn = '-' if p.journ == None else p.journ
+            vol = '-' if p.vol == None else p.vol
+            pages = '-' if p.pages == None else p.pages
+            number = '-' if p.number == None else p.number
 
             if link_valid:
                 authors_list = ', '.join([self.authors[i].name for i in p.authors])

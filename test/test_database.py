@@ -383,12 +383,31 @@ class TestDatabase(unittest.TestCase):
     def test_get_all_publications(self):
         db = database.Database()
         self.assertTrue(
-            db.read(path.join(self.data_dir, "publications_small_sample.xml")))
+            db.read(path.join(self.data_dir, "dblp_publications_by_year_curated.xml")))
         header, data = db.get_all_publications()
-        self.assertEqual(data,([['Knowledge-Driven Hyperlinks: Linking in the Wild.', 'http://dx.doi.org/10.1007/11768012_1'],
-                                ['Middleware to expand context and preview in hypertext.', 'http://doi.acm.org/10.1145/1028630.1028643'], 
-                                ['Conceptual data modelling for bioinformatics.', 'http://dx.doi.org/10.1093/bib/3.2.166'], 
-                                ['Data curation + process curation=data integration + science.', 'http://dx.doi.org/10.1093/bib/bbn034']]))
+        self.assertEqual(data, (
+            [['Letter from the Special Issue Editor.', 'http://www.informatik.uni-trier.de/~ley/db/journals/debu/debu24.html#Halevy01', 'Alon Y. Halevy'],
+             ['Ontology Matching: A Machine Learning Approach.', 'http://www.informatik.uni-trier.de/~ley/db/books/collections/StaabS2004.html#DoanMDH04',
+                'AnHai Doan, Jayant Madhavan, Pedro Domingos, Alon Y. Halevy'],
+            ['Representing and Reasoning about Mappings between Domain Models.', 'http://www.informatik.uni-trier.de/~ley/db/conf/aaai/aaai2002.html#MadhavanBDH02',
+                 'Jayant Madhavan, Philip A. Bernstein, Pedro Domingos, Alon Y. Halevy'],
+            ['Learning to Match the Schemas of Data Sources: A Multistrategy Approach.',
+                 'http://www.informatik.uni-trier.de/~ley/db/journals/ml/ml50.html#DoanDH03', 'AnHai Doan, Pedro Domingos, Alon Y. Halevy'],
+            ["Why your data won't mix.",
+                 'http://www.informatik.uni-trier.de/~ley/db/journals/queue/queue3.html#Halevy05', 'Alon Y. Halevy'],
+            ['Data Integration: A Status Report.',
+                 'http://www.informatik.uni-trier.de/~ley/db/conf/btw/btw2003.html#Halevy03', 'Alon Y. Halevy'],
+            ['Semantic Integration Research in the Database Community: A Brief Survey.',
+                 'http://www.informatik.uni-trier.de/~ley/db/journals/aim/aim26.html#DoanH05', 'AnHai Doan, Alon Y. Halevy'],
+            ['Semantic Integration Workshop at the Second International Semantic Web Conference (ISWC-2003).',
+                 'http://www.informatik.uni-trier.de/~ley/db/journals/aim/aim25.html#DoanHN04', 'AnHai Doan, Alon Y. Halevy, Natalya Fridman Noy'],
+            ['Semantic Integration.', 'http://www.informatik.uni-trier.de/~ley/db/journals/aim/aim26.html#NoyDH05',
+                'Natalya Fridman Noy, AnHai Doan, Alon Y. Halevy'],
+            ['Semantic Integration Workshop at the 2nd International Semantic Web Conference (ISWC-2003).',
+                 'http://www.informatik.uni-trier.de/~ley/db/journals/sigmod/sigmod33.html#DoanHN04', 'AnHai Doan, Alon Y. Halevy, Natalya Fridman Noy'],
+            ['Introduction to the Special Issue on Semantic Integration.', 'http://www.informatik.uni-trier.de/~ley/db/journals/sigmod/sigmod33.html#DoanNH04', 'AnHai Doan, Natalya Fridman Noy, Alon Y. Halevy']]
+
+        ))
 
 
 if __name__ == '__main__':

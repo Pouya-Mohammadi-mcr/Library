@@ -591,9 +591,13 @@ class Database:
         for p in self.publications:
             link_valid = validators.url(str(p.link))
             authors_list = []
+            if p.booktitle == None:
+                booktitle = '-'
+            else:
+                booktitle = p.booktitle
             if link_valid:
                 authors_list = ', '.join([self.authors[i].name for i in p.authors])
-                all_publications.append([p.title, p.link, authors_list, p.year, p.booktitle])
+                all_publications.append([p.title, p.link, authors_list, p.year, booktitle])
         return header, all_publications
 
 

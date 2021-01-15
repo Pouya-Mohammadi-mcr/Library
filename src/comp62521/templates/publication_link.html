@@ -16,11 +16,7 @@
       {% for row in args.data[1] %}
       <tr>
         {% for data_item in row %}
-          {% if row[0] == data_item %}
               <td> {{ data_item }}</td>
-          {% else %}
-              <td><a href="{{data_item}}">{{ data_item }}</a></td>
-          {% endif %}
         {% endfor %}
       </tr>
   {% endfor %}

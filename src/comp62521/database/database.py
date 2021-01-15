@@ -4,6 +4,7 @@ import numpy as np
 import xml.sax
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
+import validators
 
 PublicationType = ["Conference Paper", "Journal", "Book", "Book Chapter"]
 
@@ -583,14 +584,17 @@ class Database:
 
 
     def get_all_publications(self):
-        header = ('Publications', 'Link')
-        publication_link = []
+        header = ('Publications', 'Link', 'Authors')
+        all_publications = []
         
         for p in self.publications:
-            if(p.link != None):
-                publication_link.append([p.title, p.link])
-
-        return header, publication_link
+            link_valid = validators.url(str(p.link))
+            authors_list = []
+            if link_valid:
+                authors_list = ', '.join([self.authors[i].name for i in p.authors])
+                all_publications.append([p.title, p.link, authors_list])
+                
+        return header, all_publications
 
 
 class DocumentHandler(xml.sax.handler.ContentHandler):
@@ -644,7 +648,7 @@ class DocumentHandler(xml.sax.handler.ContentHandler):
             self.authors.append(d)
         elif self.tag == "title":
             self.title = d
-        elif self.tag == "ee":
+        elif self.tag == "url":
             self.link = d
         elif self.tag == "year":
             self.year = int(d)

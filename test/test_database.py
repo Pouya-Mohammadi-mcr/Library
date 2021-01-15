@@ -319,6 +319,15 @@ class TestDatabase(unittest.TestCase):
         data = db.get_author_stats_by_click("Markel Vigo")
         self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 3, "Internal",
                                 ['Yeliz Yesilada', 'Giorgio Brajnik'], 2, "Markel Vigo"))
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-2.xml")))
+        data = db.get_author_stats_by_click("AUTHOR1")
+        self.assertEqual(data, (True, [3, 3, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], 2, "External", [], 0, "AUTHOR1"))
+        data = db.get_author_stats_by_click("AUTHOR2")
+        self.assertEqual(data, (True, [1, 0, 0, 1, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [1, 0, 0, 1, 0], 0, "External", [], 0, "AUTHOR2"))
+        data = db.get_author_stats_by_click("AUTHOR3")
+        self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 2, "External", [], 0, "AUTHOR3"))
+        data = db.get_author_stats_by_click("AUTHOR4")
+        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], 2, "External", [], 0, "AUTHOR4"))
 
 
 if __name__ == '__main__':

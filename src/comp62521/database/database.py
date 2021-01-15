@@ -15,13 +15,14 @@ class Publication:
     BOOK = 2
     BOOK_CHAPTER = 3
 
-    def __init__(self, pub_type, title, link , year, authors, booktitle, journ, vol):
+    def __init__(self, pub_type, title, link , year, authors, booktitle, journ, vol, pages):
         self.pub_type = pub_type
         self.title = title
         self.link = link
         self.booktitle = booktitle
         self.journ = journ
         self.vol = vol
+        self.pages = pages
         if year:
             self.year = int(year)
         else:
@@ -382,7 +383,7 @@ class Database:
         return header, data
 
 
-    def add_publication(self, pub_type, title, link , year, authors, booktitle, journ, vol):
+    def add_publication(self, pub_type, title, link , year, authors, booktitle, journ, vol, pages):
         if year is None or len(authors) == 0:
             print("Warning: excluding publication due to missing information")
             print("    Publication type:", PublicationType[pub_type])
@@ -403,7 +404,7 @@ class Database:
                 idlist.append(a_id)
                 self.authors.append(Author(a))
         self.publications.append(
-            Publication(pub_type, title, link, year, idlist, booktitle, journ, vol))
+            Publication(pub_type, title, link, year, idlist, booktitle, journ, vol, pages))
         if (len(self.publications) % 100000) == 0:
             print(
                 f"Adding publication number {len(self.publications)} "
@@ -608,10 +609,15 @@ class Database:
                 vol = '-'
             else:
                 vol = int(p.vol)
+            
+            if p.pages == None:
+                pages = '-'
+            else:
+                pages = str(p.pages)
 
             if link_valid:
                 authors_list = ', '.join([self.authors[i].name for i in p.authors])
-                all_publications.append([p.title, p.link, authors_list, p.year, booktitle, jn, vol])
+                all_publications.append([p.title, p.link, authors_list, p.year, booktitle, jn, vol, pages])
         return header, all_publications
 
 
@@ -637,6 +643,7 @@ class DocumentHandler(xml.sax.handler.ContentHandler):
         self.booktitle = None
         self.journ = None
         self.vol = None
+        self.pages = None
 
     def clearData(self):
         self.pub_type = None
@@ -646,6 +653,7 @@ class DocumentHandler(xml.sax.handler.ContentHandler):
         self.link = None
         self.booktitle = None
         self.journ = None
+        self.vol = None
         self.vol = None
 
     def startDocument(self):
@@ -682,6 +690,8 @@ class DocumentHandler(xml.sax.handler.ContentHandler):
             self.journ = d
         elif self.tag == "volume":
             self.vol = d
+        elif self.tag == "pages":
+            self.pages = d
         elif name in DocumentHandler.PUB_TYPE.keys():
             self.db.add_publication(
                 self.pub_type,
@@ -691,7 +701,8 @@ class DocumentHandler(xml.sax.handler.ContentHandler):
                 self.authors,
                 self.booktitle,
                 self.journ,
-                self.vol
+                self.vol,
+                self.pages
                 )
             self.clearData()
         self.tag = None

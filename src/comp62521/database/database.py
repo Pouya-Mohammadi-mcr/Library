@@ -588,7 +588,7 @@ class Database:
 
 
     def get_all_publications(self):
-        header = ('Publications', 'Authors', 'Year', 'Book title', 'Journal', 'Volume')
+        header = ('Publications', 'Authors', 'Year', 'Book title', 'Journal', 'Volume', 'Pages')
         all_publications = []
         
         for p in self.publications:

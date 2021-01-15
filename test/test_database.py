@@ -387,27 +387,27 @@ class TestDatabase(unittest.TestCase):
         header, data = db.get_all_publications()
         self.assertEqual(data, (
             [['Letter from the Special Issue Editor.', 'http://www.informatik.uni-trier.de/~ley/db/journals/debu/debu24.html#Halevy01', 
-                'Alon Y. Halevy', 2019, '-', 'IEEE Data Eng. Bull.', 24],
+                'Alon Y. Halevy', 2019, '-', 'IEEE Data Eng. Bull.', 24, '2'],
              ['Ontology Matching: A Machine Learning Approach.', 'http://www.informatik.uni-trier.de/~ley/db/books/collections/StaabS2004.html#DoanMDH04',
-                'AnHai Doan, Jayant Madhavan, Pedro Domingos, Alon Y. Halevy', 2004, 'Handbook on Ontologies', '-', '-'],
+                'AnHai Doan, Jayant Madhavan, Pedro Domingos, Alon Y. Halevy', 2004, 'Handbook on Ontologies', '-', '-', '385-404'],
             ['Representing and Reasoning about Mappings between Domain Models.', 'http://www.informatik.uni-trier.de/~ley/db/conf/aaai/aaai2002.html#MadhavanBDH02',
-                 'Jayant Madhavan, Philip A. Bernstein, Pedro Domingos, Alon Y. Halevy', 2002, 'AAAI/IAAI', '-', '-'],
+                 'Jayant Madhavan, Philip A. Bernstein, Pedro Domingos, Alon Y. Halevy', 2002, 'AAAI/IAAI', '-', '-', '-'],
             ['Learning to Match the Schemas of Data Sources: A Multistrategy Approach.','http://www.informatik.uni-trier.de/~ley/db/journals/ml/ml50.html#DoanDH03', 
-                'AnHai Doan, Pedro Domingos, Alon Y. Halevy', 2003, '-', 'Machine Learning', 50],
+                'AnHai Doan, Pedro Domingos, Alon Y. Halevy', 2003, '-', 'Machine Learning', 50, '279-301'],
             ["Why your data won't mix.", 'http://www.informatik.uni-trier.de/~ley/db/journals/queue/queue3.html#Halevy05', 
-                'Alon Y. Halevy', 2005, '-', 'ACM Queue', 3],
+                'Alon Y. Halevy', 2005, '-', 'ACM Queue', 3, '50-58'],
             ['Data Integration: A Status Report.', 'http://www.informatik.uni-trier.de/~ley/db/conf/btw/btw2003.html#Halevy03', 
-                'Alon Y. Halevy', 2003, 'BTW', '-', '-'],
+                'Alon Y. Halevy', 2003, 'BTW', '-', '-', '24-29'],
             ['Semantic Integration Research in the Database Community: A Brief Survey.', 'http://www.informatik.uni-trier.de/~ley/db/journals/aim/aim26.html#DoanH05', 
-                'AnHai Doan, Alon Y. Halevy', 2005, '-', 'AI Magazine', 26],
+                'AnHai Doan, Alon Y. Halevy', 2005, '-', 'AI Magazine', 26, '83-94'],
             ['Semantic Integration Workshop at the Second International Semantic Web Conference (ISWC-2003).', 'http://www.informatik.uni-trier.de/~ley/db/journals/aim/aim25.html#DoanHN04',
-                'AnHai Doan, Alon Y. Halevy, Natalya Fridman Noy', 2004, '-', 'AI Magazine', 25],
+                'AnHai Doan, Alon Y. Halevy, Natalya Fridman Noy', 2004, '-', 'AI Magazine', 25, '109-112'],
             ['Semantic Integration.', 'http://www.informatik.uni-trier.de/~ley/db/journals/aim/aim26.html#NoyDH05',
-                'Natalya Fridman Noy, AnHai Doan, Alon Y. Halevy', 2005, '-', 'AI Magazine', 26],
+                'Natalya Fridman Noy, AnHai Doan, Alon Y. Halevy', 2005, '-', 'AI Magazine', 26, '7-10'],
             ['Semantic Integration Workshop at the 2nd International Semantic Web Conference (ISWC-2003).', 'http://www.informatik.uni-trier.de/~ley/db/journals/sigmod/sigmod33.html#DoanHN04', 
-                'AnHai Doan, Alon Y. Halevy, Natalya Fridman Noy', 2004, '-', 'SIGMOD Record', 33],
+                'AnHai Doan, Alon Y. Halevy, Natalya Fridman Noy', 2004, '-', 'SIGMOD Record', 33, '138-140'],
             ['Introduction to the Special Issue on Semantic Integration.', 'http://www.informatik.uni-trier.de/~ley/db/journals/sigmod/sigmod33.html#DoanNH04', 
-                'AnHai Doan, Natalya Fridman Noy, Alon Y. Halevy', 2004, '-', 'SIGMOD Record', 33]]
+                'AnHai Doan, Natalya Fridman Noy, Alon Y. Halevy', 2004, '-', 'SIGMOD Record', 33, '11-13']]
 
         ))
 

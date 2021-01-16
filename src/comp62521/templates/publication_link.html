@@ -14,7 +14,7 @@
 </style>
 <h1>{{ args.title }}</h1>
 
-<table id="table1">
+<table width="100%" id="table1">
     <thead>
       <tr>
         {% for column in args.data[0] %}
@@ -26,16 +26,16 @@
     <tbody>
       {% for row in args.data[1] %}
       <tr>
-        <td width="20%"><a href="{{row[1]}}">{{ row[0] }}</a></td>
-        <td width="20%">{{ row[2] }}</td>
-        <td>{{ row[3] }}</td>
-        <td>{{ row[4] }}</td>
-        <td>{{ row[5] }}</td>
-        <td>{{ row[6] }}</td>
-        <td>{{ row[7] }}</td>
-        <td>{{ row[8] }}</td>
-        <td>{{ row[9] }}</td>
-        <td class="EE" width="30%"><a href="{{row[10]}}">{{ row[10] }}</a></td>
+        <td ><a href="{{row[1]}}">{{ row[0] }}</a></td>
+        <td >{{ row[2] }}</td>
+        <td >{{ row[3] }}</td>
+        <td >{{ row[4] }}</td>
+        <td >{{ row[5] }}</td>
+        <td >{{ row[6] }}</td>
+        <td >{{ row[7] }}</td>
+        <td >{{ row[8] }}</td>
+        <td >{{ row[9] }}</td>
+        <td class="EE" style="min-width:100px"><a href="{{row[10]}}">{{ row[10] }}</a></td>
       </tr>
       {% endfor %}
     </tbody>

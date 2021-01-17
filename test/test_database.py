@@ -334,6 +334,12 @@ class TestDatabase(unittest.TestCase):
         self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-2.xml")))
         header, data = db.get_all_authors_stat_by_year(9999)
         self.assertEqual(data, ([['AUTHOR1', 3, 3, 0, 0, 0], ['AUTHOR3', 1, 1, 0, 0, 0], ['AUTHOR4', 2, 2, 0, 0, 0], ['AUTHOR2', 1, 0, 0, 0, 1]]))
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_2000_2005_114_papers.xml")))
+        header, data = db.get_all_authors_stat_by_year(2005)
+        self.assertEqual(data[0], (['Fabio Casati', 0, 0, 0, 0, 0]))
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_curated_sample.xml")))
+        header, data = db.get_all_authors_stat_by_year(1999)
+        self.assertEqual(data[5], (['AnHai Doan', 0, 0, 0, 0, 0]))                
                 
     def test_get_publications_for_year(self):
         db = database.Database()

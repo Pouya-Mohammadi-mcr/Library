@@ -338,8 +338,8 @@ class TestDatabase(unittest.TestCase):
     def test_get_publications_for_year(self):
         db = database.Database()
         self.assertTrue(db.read(path.join(self.data_dir, "simple.xml")))
-        header, data = db.get_get_publications_for_year(9999)
-        self.assertEqual(data, ([9999, 1, 0, 0, 0, 1]))
+        header, data = db.get_publications_for_year(9999)
+        self.assertEqual(data, ([1, 1, 0, 0, 0]))
 
 if __name__ == '__main__':
     unittest.main()

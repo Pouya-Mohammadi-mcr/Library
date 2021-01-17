@@ -335,6 +335,11 @@ class TestDatabase(unittest.TestCase):
         header, data = db.get_all_authors_stat_by_year(9999)
         self.assertEqual(data, ([['AUTHOR1', 3, 3, 0, 0, 0], ['AUTHOR3', 1, 1, 0, 0, 0], ['AUTHOR4', 2, 2, 0, 0, 0], ['AUTHOR2', 1, 0, 0, 0, 1]]))
                 
-        
+    def test_get_publications_for_year(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir, "simple.xml")))
+        header, data = db.get_get_publications_for_year(9999)
+        self.assertEqual(data, ([9999, 1, 0, 0, 0, 1]))
+
 if __name__ == '__main__':
     unittest.main()

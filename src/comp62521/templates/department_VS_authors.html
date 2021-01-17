@@ -49,11 +49,15 @@
         {% for row in args.data[1] %}
             <tr>
               {% for author_stat in row %}
+                {% if row[0] == author_stat %}
+                    <td><a href="/authorstatsbyclick?author={{ row[0] }}"> {{ author_stat }}</a></td>
+                {% else %}
                     <td>{{ author_stat }}</td>
+                {% endif %}
               {% endfor %}
             </tr>
         {% endfor %}
-        </tbody>
+     </tbody>
 </table>
 </div>
 

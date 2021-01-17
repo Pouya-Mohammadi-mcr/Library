@@ -340,6 +340,14 @@ class TestDatabase(unittest.TestCase):
         self.assertTrue(db.read(path.join(self.data_dir, "simple.xml")))
         header, data = db.get_publications_for_year(9999)
         self.assertEqual(data, ([1, 1, 0, 0, 0]))
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_curated_separations.xml")))
+        header, data = db.get_publications_for_year(9999)
+        self.assertEqual(data, ([0, 0, 0, 0, 0]))
+        header, data = db.get_publications_for_year(2008)
+        self.assertEqual(data, ([1, 1, 0, 0, 0]))
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_publications_by_year_curated.xml")))
+        header, data = db.get_publications_for_year(2004)
+        self.assertEqual(data, ([4, 0, 3, 1, 0]))
 
 if __name__ == '__main__':
     unittest.main()

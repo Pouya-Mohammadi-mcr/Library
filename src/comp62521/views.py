@@ -236,7 +236,7 @@ def showDepartment_VS_authors():
     if "search_year" in request.args:
         search_year = int(request.args.get("search_year"))
 
-
+    args["depData"] = db.get_publications_for_year(search_year)
     args["data"] = db.get_all_authors_stat_by_year(search_year)
     args["min_year"] = db.min_year
     args["max_year"] = db.max_year

@@ -365,6 +365,8 @@ class Database:
         for i in data:
             if i[0] == year:
                 return header, [i[5],i[1],i[2],i[4],i[3]]
+ 
+        return header, [0,0,0,0,0]    
 
     def get_average_publications_per_author_by_year(self, av):
         header = ("Year", "Conference papers",

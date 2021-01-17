@@ -21,6 +21,25 @@
     <table class="table table-striped display"  id="table1">
     <thead>
       <tr>
+      {% for column in args.depData[0] %}
+        <th>{{ column }}</th>
+      {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+            <tr>
+                {% for cell in args.depData[1] %}
+                <td>{{ cell }}</td>
+              {% endfor %}
+            </tr>
+        </tbody>
+</table>
+</div>
+
+<div class="col-md-12" style="margin-top: 20px">
+    <table class="table table-striped display"  id="table1">
+    <thead>
+      <tr>
       {% for column in args.data[0] %}
         <th>{{ column }}</th>
       {% endfor %}

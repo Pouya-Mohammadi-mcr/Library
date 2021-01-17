@@ -326,6 +326,15 @@ class TestDatabase(unittest.TestCase):
         self.assertTrue(db.read(path.join(self.data_dir, "simple.xml")))
         header, data = db.get_all_authors_stat_by_year(9999)
         self.assertEqual(data, ([["AUTHOR1", 1, 1, 0, 0, 0], ["AUTHOR2", 1, 1, 0, 0, 0]]))
-
+        header, data = db.get_all_authors_stat_by_year(2012)
+        self.assertEqual(data, ([["AUTHOR1", 0, 0, 0, 0, 0], ["AUTHOR2", 0, 0, 0, 0, 0]]))
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-3.xml")))
+        header, data = db.get_all_authors_stat_by_year(2012)
+        self.assertEqual(data, ([['AUTHOR', 3, 3, 0, 0, 0], ['AUTHOR1', 1, 1, 0, 0, 0]]))
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-2.xml")))
+        header, data = db.get_all_authors_stat_by_year(9999)
+        self.assertEqual(data, ([['AUTHOR1', 3, 3, 0, 0, 0], ['AUTHOR3', 1, 1, 0, 0, 0], ['AUTHOR4', 2, 2, 0, 0, 0], ['AUTHOR2', 1, 0, 0, 0, 1]]))
+                
+        
 if __name__ == '__main__':
     unittest.main()

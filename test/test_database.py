@@ -323,9 +323,9 @@ class TestDatabase(unittest.TestCase):
 
     def test_get_all_authors_stat_by_year(self):
         db = database.Database()
-        self.assertTrue(db.read(path.join(self.data_dir, "simple2.xml")))
+        self.assertTrue(db.read(path.join(self.data_dir, "simple.xml")))
         header, data = db.get_all_authors_stat_by_year(9999)
-        self.assertEqual(data, ([["AUTHOR1", 1, 1, 0,0,0,0], ["AUTHOR2", 1, 1, 0,0,0,0]]))
+        self.assertEqual(data, ([["AUTHOR1", 1, 1, 0, 0, 0], ["AUTHOR2", 1, 1, 0, 0, 0]]))
 
 if __name__ == '__main__':
     unittest.main()

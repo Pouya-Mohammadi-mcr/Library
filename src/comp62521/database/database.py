@@ -297,6 +297,30 @@ class Database:
             data += [self.authors[i].name.lower()]
         return data
 
+    def get_all_authors_stat_by_year(self,year):
+        header = ("Author", "Number of all publications","Number of conference papers",
+                  "Number of journals", "Number of book chapters", "Number of books")
+        astats = []
+        data = []
+        for i in range(len(self.authors)) :
+            astats.append([self.authors[i].name, 0, 0, 0, 0 ,0 ]) 
+        for p in self.publications:
+                if p.year == year:
+                    for a in p.authors:
+                        for i in range(len(astats)):
+                            if self.authors[a].name == astats[i][0]:
+                                astats[i][1] += 1
+                                if p.pub_type == 0:
+                                    astats[i][2]+= 1
+                                elif p.pub_type == 1:
+                                    astats[i][3]+= 1
+                                elif p.pub_type == 2:
+                                    astats[i][5]+= 1
+                                elif p.pub_type == 3:
+                                    astats[i][4]+= 1          
+                           
+        return header, astats
+
     def get_average_authors_per_publication_by_year(self, av):
         header = ("Year", "Conference papers",
                   "Journals", "Books",

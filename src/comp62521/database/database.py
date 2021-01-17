@@ -358,6 +358,13 @@ class Database:
         data = [[y] + ystats[y] + [sum(ystats[y])] for y in ystats]
         return header, data
 
+    def get_publications_for_year(self, year):
+        oldHeader, data = self.get_publications_by_year()
+        header = ("Number of all publications","Number of conference papers",
+                  "Number of journals", "Number of book chapters", "Number of books")
+        for i in data:
+            if i[0] == year:
+                return header, [i[5],i[1],i[2],i[4],i[3]]
 
     def get_average_publications_per_author_by_year(self, av):
         header = ("Year", "Conference papers",

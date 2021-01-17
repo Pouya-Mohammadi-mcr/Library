@@ -224,3 +224,22 @@ def showAuthorSearchByClick():
     args["NoCoAuthor"] = NoCoAuthor
     args["authorname"] = author_name
     return render_template("author_stats_by_click.html", args=args)
+
+
+@app.route("/department_VS_authors")
+def showDepartment_VS_authors():
+    dataset = app.config['DATASET']
+    db = app.config['DATABASE']
+    args = {"dataset": dataset, "id": "department_VS_authors", "title": "Department Versus Authors By Year"}
+
+    search_year = db.min_year
+    if "search_year" in request.args:
+        search_year = int(request.args.get("search_year"))
+
+
+    args["data"] = db.get_all_authors_stat_by_year(search_year)
+    args["min_year"] = db.min_year
+    args["max_year"] = db.max_year
+    args["search_year"] = search_year
+
+    return render_template("department_VS_authors.html", args=args)

@@ -214,7 +214,7 @@ def showAuthorSearchByClick():
     args = {"dataset":dataset, "id":"author_stats_by_click"}
     args["title"] = "Author Stats"
     author = str(request.args.get("author"))
-    author_found, NoPublications, NoFirstAuthor, NoLastAuthor, NoSoleAuthor, NoCoAuthor, author_name = db.get_author_stats_by_click(author)
+    author_found, NoPublications, NoFirstAuthor, NoLastAuthor, NoSoleAuthor, NoCoAuthor, AuthorType, ExCoAuthorsList , NoExCoAuthors , author_name = db.get_author_stats_by_click(author)
     args["authorfound"]=author_found
     args["author"]=author
     args["NoPublications"] = NoPublications
@@ -223,4 +223,8 @@ def showAuthorSearchByClick():
     args["NoSoleAuthor"] = NoSoleAuthor
     args["NoCoAuthor"] = NoCoAuthor
     args["authorname"] = author_name
+    args["AuthorType"] = AuthorType
+    args["ExCoAuthorsList"] = ExCoAuthorsList
+    args["NoExCoAuthors"] = NoExCoAuthors
+
     return render_template("author_stats_by_click.html", args=args)

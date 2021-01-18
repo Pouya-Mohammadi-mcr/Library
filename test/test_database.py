@@ -289,7 +289,6 @@ class TestDatabase(unittest.TestCase):
         matchedNum, matched = db.get_partial_match("cornell", allAuthors)
         self.assertEqual(matchedNum, 1)
         self.assertEqual(matched, ['mike cornell'])
-    
     def test_sort_result(self):
         db = database.Database()
         searchedAuthorName = ['Brian Sam Alice', 'Sam Alice', 'Samuel Alice', 'Alice Sam Brian',
@@ -308,7 +307,6 @@ class TestDatabase(unittest.TestCase):
                                 "Duncan Hull", "Caroline Jay", "John A. Keane", "Goran Nenadic", "Bijan Parsia", "Norman W. Paton",
                                 "Steve Pettifer", "Rizos Sakellariou", "Sandra Sampaio", "Uli Sattler", "Robert Stevens", "Chris Taylor",
                                 "Markel Vigo", "Ning Zhang"])
-
     def test_get_author_stats_by_click(self):
         db = database.Database()
         self.assertTrue(db.read(path.join(self.data_dir, "dblp_curated_sample.xml")))
@@ -329,6 +327,40 @@ class TestDatabase(unittest.TestCase):
         data = db.get_author_stats_by_click("AUTHOR4")
         self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], 2, "External", [], 0, "AUTHOR4"))
 
+    
+    def test_get_all_authors_stat_by_year(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir, "simple.xml")))
+        header, data = db.get_all_authors_stat_by_year(9999)
+        self.assertEqual(data, ([["AUTHOR1", 1, 1, 0, 0, 0], ["AUTHOR2", 1, 1, 0, 0, 0]]))
+        header, data = db.get_all_authors_stat_by_year(2012)
+        self.assertEqual(data, ([["AUTHOR1", 0, 0, 0, 0, 0], ["AUTHOR2", 0, 0, 0, 0, 0]]))
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-3.xml")))
+        header, data = db.get_all_authors_stat_by_year(2012)
+        self.assertEqual(data, ([['AUTHOR', 3, 3, 0, 0, 0], ['AUTHOR1', 1, 1, 0, 0, 0]]))
+        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-2.xml")))
+        header, data = db.get_all_authors_stat_by_year(9999)
+        self.assertEqual(data, ([['AUTHOR1', 3, 3, 0, 0, 0], ['AUTHOR3', 1, 1, 0, 0, 0], ['AUTHOR4', 2, 2, 0, 0, 0], ['AUTHOR2', 1, 0, 0, 0, 1]]))
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_2000_2005_114_papers.xml")))
+        header, data = db.get_all_authors_stat_by_year(2005)
+        self.assertEqual(data[0], (['Fabio Casati', 0, 0, 0, 0, 0]))
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_curated_sample.xml")))
+        header, data = db.get_all_authors_stat_by_year(1999)
+        self.assertEqual(data[5], (['AnHai Doan', 0, 0, 0, 0, 0]))                
+                
+    def test_get_publications_for_year(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir, "simple.xml")))
+        header, data = db.get_publications_for_year(9999)
+        self.assertEqual(data, ([1, 1, 0, 0, 0]))
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_curated_separations.xml")))
+        header, data = db.get_publications_for_year(9999)
+        self.assertEqual(data, ([0, 0, 0, 0, 0]))
+        header, data = db.get_publications_for_year(2008)
+        self.assertEqual(data, ([1, 1, 0, 0, 0]))
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_publications_by_year_curated.xml")))
+        header, data = db.get_publications_for_year(2004)
+        self.assertEqual(data, ([4, 0, 3, 1, 0]))
 
 if __name__ == '__main__':
     unittest.main()

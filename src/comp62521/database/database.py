@@ -636,7 +636,7 @@ class Database:
                                 ExCoAuthorsList.append(bname)
                                 NoExCoAuthors += 1
 
-        return author_found, NoPublications, NoFirstAuthor, NoLastAuthor, NoSoleAuthor, NoCoAuthor, AuthorType, ExCoAuthorsList, NoExCoAuthors, author_name
+        return author_found, NoPublications, NoFirstAuthor, NoLastAuthor, NoSoleAuthor, NoCoAuthor, AuthorType,  ", ".join(ExCoAuthorsList), NoExCoAuthors, author_name
 
 
 class DocumentHandler(xml.sax.handler.ContentHandler):

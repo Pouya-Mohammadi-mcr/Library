@@ -289,7 +289,6 @@ class TestDatabase(unittest.TestCase):
         matchedNum, matched = db.get_partial_match("cornell", allAuthors)
         self.assertEqual(matchedNum, 1)
         self.assertEqual(matched, ['mike cornell'])
-
     def test_sort_result(self):
         db = database.Database()
         searchedAuthorName = ['Brian Sam Alice', 'Sam Alice', 'Samuel Alice', 'Alice Sam Brian',
@@ -300,27 +299,35 @@ class TestDatabase(unittest.TestCase):
         res=db.sort_result("Sam",searchedAuthorName)
         self.assertEqual(res,['Alice Sam', 'Brian Sam', 'Alice Sammer', 'Brian Sammer', 'Alice Samming', 'Brian Samming', 'Sam Alice','Sam Brian','Samuel Alice', 'Samuel Brian', 'Brian Sam Alice', 'Alice Sam Brian', 'Alice Esam', 'Brian Esam'])
 
+    def test_get_cs_staff(self):
+        db = database.Database()
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_curated_sample.xml")))
+        data = db.get_cs_staff()
+        self.assertEqual(data, ["Sean Bechhofer", "Andy Brass", "Suzanne M. Embury", "Carole A. Goble", "Robert Haines", "Simon Harper",
+                                "Duncan Hull", "Caroline Jay", "John A. Keane", "Goran Nenadic", "Bijan Parsia", "Norman W. Paton",
+                                "Steve Pettifer", "Rizos Sakellariou", "Sandra Sampaio", "Uli Sattler", "Robert Stevens", "Chris Taylor",
+                                "Markel Vigo", "Ning Zhang"])
     def test_get_author_stats_by_click(self):
         db = database.Database()
-        self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-1.xml")))
-        data = db.get_author_stats_by_click("AUTHOR1")
-        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [1, 1, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 3, "AUTHOR1"))
-        data = db.get_author_stats_by_click("AUTHOR2")
-        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 3, "AUTHOR2"))
-        data = db.get_author_stats_by_click("AUTHOR3")
-        self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR3"))
-        data = db.get_author_stats_by_click("AUTHOR4")
-        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR4"))
+        self.assertTrue(db.read(path.join(self.data_dir, "dblp_curated_sample.xml")))
+        data = db.get_author_stats_by_click("Bijan Parsia")
+        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 8, "Internal",
+                                ['Patrice Seyed', 'Alan L. Rector', 'Klitos Christodoulou', 'Alvaro A. A. Fernandes', 'Cornelia Hedeler'],
+                                5, "Bijan Parsia"))
+        data = db.get_author_stats_by_click("Markel Vigo")
+        self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 3, "Internal",
+                                ['Yeliz Yesilada', 'Giorgio Brajnik'], 2, "Markel Vigo"))
         self.assertTrue(db.read(path.join(self.data_dir, "sprint-2-acceptance-2.xml")))
         data = db.get_author_stats_by_click("AUTHOR1")
-        self.assertEqual(data, (True, [3, 3, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], 2, "AUTHOR1"))
+        self.assertEqual(data, (True, [3, 3, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], 2, "External", [], 0, "AUTHOR1"))
         data = db.get_author_stats_by_click("AUTHOR2")
-        self.assertEqual(data, (True, [1, 0, 0, 1, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [1, 0, 0, 1, 0], 0, "AUTHOR2"))
+        self.assertEqual(data, (True, [1, 0, 0, 1, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [1, 0, 0, 1, 0], 0, "External", [], 0, "AUTHOR2"))
         data = db.get_author_stats_by_click("AUTHOR3")
-        self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR3"))
+        self.assertEqual(data, (True, [1, 1, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], 2, "External", [], 0, "AUTHOR3"))
         data = db.get_author_stats_by_click("AUTHOR4")
-        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], 2, "AUTHOR4"))
+        self.assertEqual(data, (True, [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], [2, 2, 0, 0, 0], [0, 0, 0, 0, 0], 2, "External", [], 0, "AUTHOR4"))
 
+    
     def test_get_all_authors_stat_by_year(self):
         db = database.Database()
         self.assertTrue(db.read(path.join(self.data_dir, "simple.xml")))

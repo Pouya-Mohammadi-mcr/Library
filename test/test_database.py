@@ -387,27 +387,27 @@ class TestDatabase(unittest.TestCase):
         header, data = db.get_all_publications()
         self.assertEqual(data, (
             [['Letter from the Special Issue Editor.', 'http://www.informatik.uni-trier.de/~ley/db/journals/debu/debu24.html#Halevy01', 
-                'Alon Y. Halevy', 2019, '-', 'IEEE Data Eng. Bull.', '24', '2', '2', '-', 'http://sites.computer.org/debull/A01JUN-CD.pdf'],
+                'Alon Y. Halevy', 2019, '-', 'IEEE Data Eng. Bull.', '24', '2', '2', '-', 'http://sites.computer.org/debull/A01JUN-CD.pdf', '-'],
              ['Ontology Matching: A Machine Learning Approach.', 'http://www.informatik.uni-trier.de/~ley/db/books/collections/StaabS2004.html#DoanMDH04',
-                'AnHai Doan, Jayant Madhavan, Pedro Domingos, Alon Y. Halevy', 2004, 'Handbook on Ontologies', '-', '-', '385-404', '-', 'books/sp/StaabS04', '-'],
+                'AnHai Doan, Jayant Madhavan, Pedro Domingos, Alon Y. Halevy', 2004, 'Handbook on Ontologies', '-', '-', '385-404', '-', 'books/sp/StaabS04', '-', '-'],
             ['Representing and Reasoning about Mappings between Domain Models.', 'http://www.informatik.uni-trier.de/~ley/db/conf/aaai/aaai2002.html#MadhavanBDH02',
-                 'Jayant Madhavan, Philip A. Bernstein, Pedro Domingos, Alon Y. Halevy', 2002, 'AAAI/IAAI', '-', '-', '80-86', '-', 'conf/aaai/2002', 'http://www.aaai.org/Library/AAAI/2002/aaai02-013.php'],
+                 'Jayant Madhavan, Philip A. Bernstein, Pedro Domingos, Alon Y. Halevy', 2002, 'AAAI/IAAI', '-', '-', '80-86', '-', 'conf/aaai/2002', 'http://www.aaai.org/Library/AAAI/2002/aaai02-013.php', '-'],
             ['Learning to Match the Schemas of Data Sources: A Multistrategy Approach.','http://www.informatik.uni-trier.de/~ley/db/journals/ml/ml50.html#DoanDH03', 
-                'AnHai Doan, Pedro Domingos, Alon Y. Halevy', 2003, '-', 'Machine Learning', '50', '279-301','3', '-', 'http://dx.doi.org/10.1023/A:1021765902788'],
+                'AnHai Doan, Pedro Domingos, Alon Y. Halevy', 2003, '-', 'Machine Learning', '50', '279-301','3', '-', 'http://dx.doi.org/10.1023/A:1021765902788', '-'],
             ["Why your data won't mix.", 'http://www.informatik.uni-trier.de/~ley/db/journals/queue/queue3.html#Halevy05', 
-                'Alon Y. Halevy', 2005, '-', 'ACM Queue', '3', '50-58', '8', '-', 'http://doi.acm.org/10.1145/1103822.1103836'],
+                'Alon Y. Halevy', 2005, '-', 'ACM Queue', '3', '50-58', '8', '-', 'http://doi.acm.org/10.1145/1103822.1103836', '-'],
             ['Data Integration: A Status Report.', 'http://www.informatik.uni-trier.de/~ley/db/conf/btw/btw2003.html#Halevy03', 
-                'Alon Y. Halevy', 2003, 'BTW', '-', '-', '24-29', '-', 'conf/btw/2003', 'http://subs.emis.de/LNI/Proceedings/Proceedings26/article623.html'],
+                'Alon Y. Halevy', 2003, 'BTW', '-', '-', '24-29', '-', 'conf/btw/2003', 'http://subs.emis.de/LNI/Proceedings/Proceedings26/article623.html', '-'],
             ['Semantic Integration Research in the Database Community: A Brief Survey.', 'http://www.informatik.uni-trier.de/~ley/db/journals/aim/aim26.html#DoanH05', 
-                'AnHai Doan, Alon Y. Halevy', 2005, '-', 'AI Magazine', '26', '83-94', '1', '-', 'http://www.aaai.org/ojs/index.php/aimagazine/article/view/1801'],
+                'AnHai Doan, Alon Y. Halevy', 2005, '-', 'AI Magazine', '26', '83-94', '1', '-', 'http://www.aaai.org/ojs/index.php/aimagazine/article/view/1801', '-'],
             ['Semantic Integration Workshop at the Second International Semantic Web Conference (ISWC-2003).', 'http://www.informatik.uni-trier.de/~ley/db/journals/aim/aim25.html#DoanHN04',
-                'AnHai Doan, Alon Y. Halevy, Natalya Fridman Noy', 2004, '-', 'AI Magazine', '25', '109-112', '1', '-', 'http://www.aaai.org/ojs/index.php/aimagazine/article/view/1753'],
+                'AnHai Doan, Alon Y. Halevy, Natalya Fridman Noy', 2004, '-', 'AI Magazine', '25', '109-112', '1', '-', 'http://www.aaai.org/ojs/index.php/aimagazine/article/view/1753', '-'],
             ['Semantic Integration.', 'http://www.informatik.uni-trier.de/~ley/db/journals/aim/aim26.html#NoyDH05',
-                'Natalya Fridman Noy, AnHai Doan, Alon Y. Halevy', 2005, '-', 'AI Magazine', '26', '7-10', '1', '-', 'http://www.aaai.org/ojs/index.php/aimagazine/article/view/1794'],
+                'Natalya Fridman Noy, AnHai Doan, Alon Y. Halevy', 2005, '-', 'AI Magazine', '26', '7-10', '1', '-', 'http://www.aaai.org/ojs/index.php/aimagazine/article/view/1794', '-'],
             ['Semantic Integration Workshop at the 2nd International Semantic Web Conference (ISWC-2003).', 'http://www.informatik.uni-trier.de/~ley/db/journals/sigmod/sigmod33.html#DoanHN04', 
-                'AnHai Doan, Alon Y. Halevy, Natalya Fridman Noy', 2004, '-', 'SIGMOD Record', '33', '138-140', '1', '-', 'http://www.acm.org/sigmod/record/issues/0403/R3.Semantic_integration_03.pdf'],
+                'AnHai Doan, Alon Y. Halevy, Natalya Fridman Noy', 2004, '-', 'SIGMOD Record', '33', '138-140', '1', '-', 'http://www.acm.org/sigmod/record/issues/0403/R3.Semantic_integration_03.pdf', '-'],
             ['Introduction to the Special Issue on Semantic Integration.', 'http://www.informatik.uni-trier.de/~ley/db/journals/sigmod/sigmod33.html#DoanNH04', 
-                'AnHai Doan, Natalya Fridman Noy, Alon Y. Halevy', 2004, '-', 'SIGMOD Record', '33', '11-13', '4', '-', 'http://doi.acm.org/10.1145/1041410.1041412']]
+                'AnHai Doan, Natalya Fridman Noy, Alon Y. Halevy', 2004, '-', 'SIGMOD Record', '33', '11-13', '4', '-', 'http://doi.acm.org/10.1145/1041410.1041412', '-']]
 
         ))
 

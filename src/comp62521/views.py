@@ -65,7 +65,7 @@ def showCoAuthors():
     db = app.config['DATABASE']
     PUB_TYPES = ["Conference Papers", "Journals", "Books", "Book Chapters", "All Publications"]
     args = {"dataset": dataset, "id": "coauthors", "title": "Co-Authors"}
-
+    
     start_year = db.min_year
     if "start_year" in request.args:
         start_year = int(request.args.get("start_year"))
@@ -247,3 +247,13 @@ def showDepartment_VS_authors():
     args["search_year"] = search_year
 
     return render_template("department_VS_authors.html", args=args)
+    
+@app.route("/publication_link")
+def showAllPublications():
+    dataset = app.config['DATASET']
+    db = app.config['DATABASE']
+    args = {"dataset": dataset, "id": "all_publications_link"}
+    args["title"] = "All publications"
+    args['data'] = db.get_all_publications()
+
+    return render_template('publication_link.html', args=args)

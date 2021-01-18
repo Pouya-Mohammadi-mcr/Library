@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ args.title }}{% endblock %}
 {% block content %}
+
 <h1>{{ args.title }}</h1>
 <div class="col-md-12">
   <form name="input" action="/coauthors" method="get" data-ajax="false" onSubmit="validateForm(this)">

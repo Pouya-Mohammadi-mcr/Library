@@ -591,7 +591,7 @@ class Database:
 
 
     def get_all_publications(self):
-        header = ('Publications', 'Authors', 'Year', 'Book title', 'Journal', 'Volume', 'Pages', 'Number', 'Cross reference', 'EE')
+        header = ('Publications', 'Authors', 'Year', 'Book title', 'Journal', 'Volume', 'Pages', 'Number', 'Cross reference', 'Url')
         all_publications = []
         
         for p in self.publications:
@@ -676,7 +676,7 @@ class DocumentHandler(xml.sax.handler.ContentHandler):
             self.authors.append(d)
         elif self.tag == "title":
             self.title = d
-        elif self.tag == "url":
+        elif self.tag == "ee":
             self.link = d
         elif self.tag == "year":
             self.year = int(d)
@@ -692,7 +692,7 @@ class DocumentHandler(xml.sax.handler.ContentHandler):
             self.number = d
         elif self.tag == "crossref":
             self.crossref = d
-        elif self.tag == "ee":
+        elif self.tag == "url":
             self.ee = d
         elif name in DocumentHandler.PUB_TYPE.keys():
             self.db.add_publication(

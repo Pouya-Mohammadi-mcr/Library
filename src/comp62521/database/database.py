@@ -593,7 +593,7 @@ class Database:
 
 
     def get_all_publications(self):
-        header = ('Publications', 'Authors', 'Year', 'Book title', 'Journal', 'Volume', 'Pages', 'Number', 'Cross reference', 'Url', 'ISBN', 'Series')
+        header = ('Title', 'Authors', 'Year', 'Book title', 'Journal', 'Volume', 'Pages', 'Number', 'Cross reference', 'Url', 'ISBN', 'Series')
         all_publications = []
         
         for p in self.publications:

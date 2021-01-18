@@ -46,7 +46,11 @@
     {% for row in args.data[1] %}
       <tr>
       {% for data_item in row %}
-        <td>{{ data_item }}</td>
+        {%if row[0] == data_item%}
+            <td><a id = {{data_item}} href="{{ url_for('showAuthorSearchByClick2',author_name = data_item) }}">{{data_item}}</a></td>
+        {%else%}
+            <td>{{ data_item }}</td>
+        {%endif%}
       {% endfor %}
       </tr>
     {% endfor %}
